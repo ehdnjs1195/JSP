@@ -21,6 +21,7 @@
 		<li><a href="sub/view.jsp?num=1&name=kimgura&addr=nrg">보기</a></li>	
 		<li><a href="users/loginform.jsp">로그인하러 가기</a></li>
 		<li><a href="member/insertform.jsp">회원 추가하러 가기</a></li>
+		<li><a href="users/signup_form.jsp">회원 가입하러 가기</a></li>
 	</ul>
 </div>
 </body>
