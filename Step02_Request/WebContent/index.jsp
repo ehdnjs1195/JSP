@@ -20,6 +20,7 @@
 		<!-- GET 방식 전송 파라미터가 여러개이면 &로 구분해서 작성하면 된다. -->
 		<li><a href="sub/view.jsp?num=1&name=kimgura&addr=nrg">보기</a></li>	
 		<li><a href="users/loginform.jsp">로그인하러 가기</a></li>
+		<li><a href="member/insertform.jsp">회원 추가하러 가기</a></li>
 	</ul>
 </div>
 </body>
