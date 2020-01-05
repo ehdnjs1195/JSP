@@ -22,8 +22,8 @@ public class ShowTimeServlet extends HttpServlet{
 	/*
 	 *  service() 메소드에는 HttpServletRequest 객체의 참조값과
 	 *  HttpServletResponse  객체의 참조값이 전달된다.
-	 *  HttpServletRequest 객체는 요청한 클라이언트의 정보를 확인할수 있는기능
-	 *  이 들어 있고 
+	 *  
+	 *  HttpServletRequest 객체는 요청한 클라이언트의 정보를 확인할수 있는기능이 들어 있고 
 	 *  HttpServletResponse 객체에는 응답에 필요한 기능들이 들어 있다. 
 	 */
 	@Override
@@ -34,7 +34,7 @@ public class ShowTimeServlet extends HttpServlet{
 		//응답 content type 설정 (html 페이지를 응답 하겠다고 알리기)
 		resp.setContentType("text/html;charset=utf-8");
 		
-		//요청한 클라이언트에게 문자열을 출력할수 있는 객체
+		//요청한 클라이언트에게 문자열을 출력할수 있는 객체	(PrintStream은 콘솔)
 		PrintWriter pw=resp.getWriter();
 		pw.println("<!doctype html>");
 		pw.println("<html>");
@@ -46,8 +46,8 @@ public class ShowTimeServlet extends HttpServlet{
 		//날짜 객체를 생성한다. 
 		Date d=new Date();
 		//현재 날짜 시간 정보를 문자열로 간단히 얻어내기
-		String info=d.toString();
-		pw.println("<p>현재 시간 : <strong>"+info+"</strong></p>");
+		String info=d.toString();	//toString()은 생략이 가능한 메소드이기 때문에 d를 이용해 바로 출력할 수 있다.
+		pw.println("<p>현재 시간 : <strong>"+info+"</strong></p>");	
 		pw.println("</body>");
 		pw.println("</html>");
 		pw.close();

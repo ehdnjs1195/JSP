@@ -10,9 +10,9 @@
 <body>
 <%
 	Date d=new Date();
-	String info=d.toString();
+	String info=d.toString();	//마찬가지로 toString(); 은 생략가능한 메소드.
 %>
-<p> 현재 시간 : <strong><%=info %></strong></p>
+<p> 현재 시간 : <strong><%=d %></strong></p>
 </body>
 </html>
 

@@ -23,7 +23,7 @@ public class DetailServlet extends HttpServlet{//index.html 에서 링크를 누
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// "num" 이라는 파라미터 명으로  전달된 문자열 읽어오기
-		String strNum=req.getParameter("num");
+		String strNum=req.getParameter("num");	//num 가져오기.
 		// 문자열을 만일 정수로 바꾸고 싶으면?
 		int num=Integer.parseInt(strNum);
 		
