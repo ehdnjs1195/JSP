@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *  2. service() 메소드를 오버라이딩 한다.
  *  3. @WebSerlvet("/showtime") 요청 경로를 어노테이션으로 등록한다. 
  */
-@WebServlet("/showtime")
+@WebServlet("/showtime")	//context 경로를 제외한 나머지 경로. /를 빼먹으면 서버가 응답하지 못하므로 반드시 입력해 주어야 함.
 public class ShowTimeServlet extends HttpServlet{
 	/*
 	 *  service() 메소드에는 HttpServletRequest 객체의 참조값과
@@ -27,12 +27,13 @@ public class ShowTimeServlet extends HttpServlet{
 	 *  HttpServletResponse 객체에는 응답에 필요한 기능들이 들어 있다. 
 	 */
 	@Override
-	protected void service(HttpServletRequest req, 
+	protected void service(HttpServletRequest req, 	//req객체에는 클라이언트의 요청에 대한 정보는 다 들어있다.
 			HttpServletResponse resp) throws ServletException, IOException {
 		//응답 한글 인코딩 설정 
 		resp.setCharacterEncoding("utf-8");
 		//응답 content type 설정 (html 페이지를 응답 하겠다고 알리기)
-		resp.setContentType("text/html;charset=utf-8");
+		resp.setContentType("text/html;charset=utf-8");	//마임타입. ex)text/html, text/xml, application/json, ...
+														//어떤 형식으로 정하겠다는 일종의 인코딩 방식.
 		
 		//요청한 클라이언트에게 문자열을 출력할수 있는 객체	(PrintStream은 콘솔)
 		PrintWriter pw=resp.getWriter();
@@ -54,9 +55,10 @@ public class ShowTimeServlet extends HttpServlet{
 	}
 }
 
-
-
-
+/*    !!중요!!  	 */ 
+//톰캣 서버가 시작되는 시점에 이 클래스(ShowTimeServlet.. 등) 어노테이션(@WebServlet)이 붙어있는 객체를 모두 생성한다. =>톰캣서버가 start되는 시점에 new ShowTimeServlet(); 실행하는 꼴이된다.
+//그러고 나면 클라이언트가 /showtime 경로를 요청했을 때! 서버에서 ShowTimeServlet의 service() 메소드를 호출하게 되는 것이다.
+//서버는 응답후 바로 클라이언트와의 연결을 해지한다. 
 
 
 
