@@ -21,7 +21,7 @@
 			<input class="form-control" type="text" id="addr" name="addr" />
 		</div>
 		<button class="btn btn-primary" type="submit">추가</button>
-		<button class="btn btn-warning">취소</button>
+		<button class="btn btn-warning" type="reset">취소</button>
 	</form>
 </div>
 </body>

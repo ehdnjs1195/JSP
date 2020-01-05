@@ -30,7 +30,7 @@
 	System.out.println("email: "+email);
 	System.out.println("pwd: "+pwd);
 	System.out.println("gender: "+gender);
-	System.out.println("[hobby]: ");
+	System.out.print("[hobby]: ");
 	if(hobbys!=null){ //아무것도 선택하지 않으면 null 이므로
 		//null 이 아닐때 반복문이 수행되도록 한다.
 		for(String tmp:hobbys){
