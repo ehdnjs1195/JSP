@@ -38,3 +38,19 @@
 	
 	*** button의 submit은 반드시 form 안에 있어야만 작동을 한다. form의 submit(제출)도 request의 하나이다. ***
  -->
+ <!-- 
+ 	[요청방법]
+ 	get방식 요청방법 
+ 	- 링크
+ 	- 주소창에 직접 입력
+ 	- form의 method를 get으로
+ 	
+ 	post방식 요청방법
+ 	- form의 method를 post로
+ 	
+  -->
+  
+  
+  
+  
+  
