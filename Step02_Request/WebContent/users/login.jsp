@@ -21,7 +21,7 @@
 <h1>로그인을 시도한 결과 페이지 입니다.</h1>
 <%if(isValid){%>
 	<p> <strong><%=id %></strong> 회원님 로그인 되었습니다.</p>
-<%}else{ %>
+<%}else{ %>    <!-- ↑는  < % out.print(id) %> 와 같다.  -->
 	<p> 아이디 혹은 비밀번호가 틀려요</p>
 	<a href="loginform.jsp">다시 로그인 하러가기</a>
 <%} %>
