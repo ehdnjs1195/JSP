@@ -12,20 +12,27 @@
 <body>
 <%
 	request.setCharacterEncoding("utf-8");
-
+	//1. 폼 전송되는 파라미터 추출
 	String name=request.getParameter("name");
 	String addr=request.getParameter("addr");
 	String n=request.getParameter("num");
 	int num=Integer.parseInt(n);
-	MemberDao dao=MemberDao.getInstance();
+	//2. MemberDao 객체를 이용해서 DB 에 수정 반영
 	MemberDto dto=new MemberDto(num, name, addr);
-	boolean isSuccess=dao.update(dto);
+	boolean isSuccess=MemberDao.getInstance().update(dto);
+	//3. 응답
 %>
 <div class="container">
 	<%if(isSuccess){ %>
-	<h1><%=num %>수정 하였습니다.</h1>
+	<script>
+		alert("수정 했습니다.");
+		location.href="list.jsp";
+	</script>
 	<%}else{ %>
-	<h1>수정하지 못하였습니다.</h1>
+	<script>
+		alert("수정 실패!");
+		location.href="list.jsp";
+	</script>
 	<%} %>
 	<a href="list.jsp">목록으로 돌아가기</a>
 </div>

@@ -16,7 +16,17 @@
 %>
 </body>
 <%if(isSuccess) {%>
-<h1><%=num %>번 회원을 삭제하였습니다.</h1>
+	<script>
+		//알림창 띄우기
+		alert("<%=num%> 번 회원의 정보를 삭제 했습니다.");
+		//javascript 에서 페이지 이동
+		location.href="list.jsp";
+	</script>
+<%}else{ %>
+	<script>
+		alert("삭제 실패!");
+		location.href="list.jsp";
+	</script>
 <%} %>
 <a href="list.jsp">목록으로 돌아가기</a>
 
