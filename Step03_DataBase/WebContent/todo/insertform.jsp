@@ -37,6 +37,18 @@
 			<label for="content">할 일</label>
 			<input class="form-control" type="text" id="content" name="content" />
 		</div>
+		<div class="form-group">
+			<label for="deadLine">마감일
+				<select name="deadLine" id="deadLine">
+					<option value="">선택</option>
+					<option value="1">1일</option>
+					<option value="2">2일</option>
+					<option value="3">3일</option>
+					<option value="4">4일</option>
+					<option value="5">5일</option>
+				</select>
+			</label>
+		</div>
 		<button class="btn btn-primary" type="submit">추가</button>
 		<a class="btn btn-warning" href="list.jsp">취소</a>
 	</form>
