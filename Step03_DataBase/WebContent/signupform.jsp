@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Loginform.jsp</title>
+<title>Insert title here</title>
 <style>
 body{
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
-	background: #33495e;
+	background: #33493f;
 }
 .box{
 	width: 300px;
@@ -63,34 +63,17 @@ body{
 .box input[type="submit"]:hover{
 	background: #2ecc71;
 }
-a{
-	border:0;
-	background: none;
-	display: block;
-	margin: 20px auto;
-	text-align: center;
-	border: 2px solid #2ecc71;
-	padding: 14px 40px;
-	width: 200px;
-	outline: none;
-	color: white;
-	border-radius: 24px;
-	transition: 0.25s;
-	cursor: pointer;
-	
-}
-a:hover{
-	background: #2ecc71;
-}
+
+
 </style>
 </head>
 <body>
-<form class="box" action="login.jsp" method="post">
-	<h1>Login</h1>
-	<input type="text" name="id" placeholder="Username"/>
+<form class="box" action="signup.jsp" method="post">
+	<h1>Sign Up</h1>
+	<input type="text" name="id" placeholder="ID"/>
 	<input type="password" name="pwd" placeholder="Password"/>
-	<input type="submit" name="" value="Login"/>
-	<a href="signupform.jsp">Sign up</a>
+	<input type="text" name="nick" placeholder="Nickname"/>
+	<input type="submit" name="" value="Sing up"/>
 </form>
 </body>
 </html>
