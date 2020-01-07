@@ -14,10 +14,9 @@
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/index.jsp">Acorn</a>
 		<ul class="nav navbar-nav">
 			<li><a href="${pageContext.request.contextPath }/member/list.jsp">회원관리</a></li>				
-			<li><a href="https://www.riotgames.com/en">게임</a></li>
-			<li><a href="https://www.coupang.com/">쇼핑</a></li>
-			<li><a href="https://comic.naver.com/webtoon/weekday.nhn">웹툰</a></li>
-		</ul>
+			<li><a href="https://www.riotgames.com/en" target="_blank">게임</a></li>
+			<li><a href="https://www.coupang.com/" target="_blank">쇼핑</a></li>
+			<li><a href="https://comic.naver.com/webtoon/weekday.nhn" target="_blank">웹툰</a></li>
 	</div>
 </div>
 <div class="container">
