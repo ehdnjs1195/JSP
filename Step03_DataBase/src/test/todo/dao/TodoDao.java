@@ -98,7 +98,7 @@ public class TodoDao {
 		return dto;
 	}
 	
-	public boolean insert(TodoDto dto) {
+	public boolean insert(String content) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int flag = 0;
@@ -109,7 +109,7 @@ public class TodoDao {
 					+ " values(todo_seq.nextval, ?, sysdate)";
 			pstmt = conn.prepareStatement(sql);
 			//?에 값 바인딩하기
-			pstmt.setString(1, dto.getContent());
+			pstmt.setString(1, content);
 			flag = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

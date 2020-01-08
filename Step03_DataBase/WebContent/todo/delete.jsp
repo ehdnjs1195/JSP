@@ -6,28 +6,8 @@
 	
 	TodoDao dao=TodoDao.getInstance();
 	boolean isSuccess=dao.delete(Integer.parseInt(num));
+	// 리다일렉트 응답(요청을 다시 하라고 클라이언트에게 경로를 알려줌)
+	response.sendRedirect("list.jsp");	//location.href="list.jsp" 와 효과가 거의 같다. 
+	// 주어진 경로로 요청을 다시하라는 강요. => 이것 또한 응답.
+	
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<%if(isSuccess) {%>
-	<script>
-		//알림창 띄우기
-		alert("<%=num%>번 할 일을 삭제했습니다.");
-		//javascript 에서 페이지 이동
-		location.href="list.jsp";
-	</script>
-<%}else{ %>
-	<script>
-		alert("삭제 실패!");
-		location.href="list.jsp";
-	</script>
-<%} %>
-<a href="list.jsp">목록으로 돌아가기</a>
-
-</body>
-</html>

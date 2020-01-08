@@ -5,8 +5,8 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	String content=request.getParameter("content");
-	TodoDto dto=new TodoDto(0, content, "");
-	boolean isSuccess=TodoDao.getInstance().insert(dto);
+	
+	boolean isSuccess=TodoDao.getInstance().insert(content);
 %>
 <!DOCTYPE html>
 <html>

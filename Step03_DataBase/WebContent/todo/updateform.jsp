@@ -34,17 +34,19 @@
 	<!-- 현재 페이지의 위치를 좀더 자세히 알려주는 breadcrumb -->
 	<ol class="breadcrumb">
 		<li><a href="list.jsp">목록</a></li>
-		<li>회원 정보 수정 폼</li>
+		<li>할 일 목록 수정</li>
 	</ol>
-	<h1><%=num %>번 회원 정보 수정하기</h1>
+	<h1>수정 양식 입니다.</h1>
+	<p>등록 번호 : <strong><%=num %></strong></p>
+	<p>등록일 : <strong><%=dto.getRegdate() %></strong></p>
 	<form action="update.jsp" method="post">
 		<div class="form-group">
 			<label for="num">번호</label>
-			<input class="form-control" type="text" id="num" value="<%=num %>" disabled/>	<!-- disabled 수정하지 못하도록(display용도), 하지만 전송도 되지않는다(name="num") 전송용을 따로 만들어 주어야함! -->
+			<input class="form-control" type="text" id="num" value="<%=dto.getNum() %>" disabled/>	<!-- disabled 수정하지 못하도록(display용도), 하지만 전송도 되지않는다(name="num") 전송용을 따로 만들어 주어야함! -->
 			<!-- disabled 된 input 요소는 form 전송 했을때 전송되지 않는다.
 				따라서 번호도 같이 전송되게 하려면  input type="hidden" 으로 만들어놓고
 				form 전송했을 때 번호도 같이 전송되도록 한다. -->
-			<input type="hidden" name="num" value="<%=num %>" />
+			<input type="hidden" name="num" value="<%=dto.getNum() %>" />	
 		</div>
 		<div class="form-group">
 			<label for="content">할일</label>
@@ -61,3 +63,5 @@
 </div>
 </body>
 </html>
+<!-- 웹브라우저의 주석(웹브라우저가 해석을 안해요) 차이점: 클라이언트에게 출력되어 보인다. -->
+<%-- jsp 페이지의 주석(서버가 해석을 안해요) 차이점: 클라이언트에게 출력 조차도 안된다. --%>

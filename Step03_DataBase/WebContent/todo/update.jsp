@@ -26,15 +26,12 @@
 	<%if(isSuccess){ %>
 	<script>
 		alert("수정 했습니다.");
-		location.href="list.jsp";
-	</script>
+		location.href="${pageContext.request.contextPath }/todo/list.jsp";	//script를 응답을 보내고, script안에 경로가 있기 때문에 클라이언트가 다시 요청하는 꼴이된다. =>최종 내용은 목록보기가 되는 것이다. 서버가 클라이언트에게 강제로 요청을 다시 하게 하고 최종적으로 목록을 보게하는 것이다.
+	</script>														
 	<%}else{ %>
-	<script>
-		alert("수정 실패!");
-		location.href="list.jsp";
-	</script>
+		<p>수정 실패!</p>
+		<a href="updateform.jsp?=num<%=dto.getNum()%>">다시 시도하러 가기</a>
 	<%} %>
-	<a href="list.jsp">목록으로 돌아가기</a>
 </div>
 </body>
 </html>
