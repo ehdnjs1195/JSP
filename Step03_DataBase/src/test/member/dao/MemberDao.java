@@ -53,7 +53,7 @@ public class MemberDao {
 			try {
 				if(rs!=null)rs.close();
 				if(pstmt!=null)pstmt.close();
-				if(conn!=null)conn.close();	//connection pool에 객체 반납하기.
+				if(conn!=null)conn.close();	//connection pool에 객체 반납하기.  close() 메소드를 호출하면 자동반납된다.
 			}catch(Exception e) {}
 		}
 		return list;
