@@ -47,13 +47,14 @@
 			</tr>
 		</thead>
 		<tbody>
-		<%for(TodoDto tmp:list){ %>
+		<%for(int i=0; i<list.size(); i++){
+				TodoDto tmp=list.get(i);%>
 			<tr>
-				<td><%=tmp.getNum() %></td>
+				<td><%=i+1 %></td>
 				<td><%=tmp.getContent() %></td>
 				<td><%=tmp.getRegdate() %></td>
-				<td><a href="updateform.jsp?num=<%=tmp.getNum()%>">수정</a></td>
-				<td><a href="javascript:deleteConfirm(<%=tmp.getNum()%>);">삭제</a></td>
+				<td><a href="updateform.jsp?num=<%=tmp.getNum()%>&seq=<%=i+1%>">수정</a></td>
+				<td><a href="javascript:deleteConfirm(<%=tmp.getNum() %>);">삭제</a></td>
 			</tr>
 		<%} %>
 		</tbody>
@@ -61,7 +62,7 @@
 </div>
 <script>
 	function deleteConfirm(num){
-		var isDelete=confirm(num+"번 목록을 삭제 하시겠습니까?");
+		var isDelete=confirm("삭제 하시겠습니까?");
 		if(isDelete){
 			location.href="delete.jsp?num="+num;
 		}

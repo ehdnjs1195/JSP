@@ -38,7 +38,7 @@
 		<li>할 일 목록 수정</li>
 	</ol>
 	<h1>수정 양식 입니다.</h1>
-	<p>등록 번호 : <strong><%=num %></strong></p>
+	<p>등록 번호 : <strong><%=seq %></strong></p>
 	<p>등록일 : <strong><%=dto.getRegdate() %></strong></p>
 	<form action="update.jsp" method="post">
 		<div class="form-group">
@@ -47,7 +47,8 @@
 			<!-- disabled 된 input 요소는 form 전송 했을때 전송되지 않는다.
 				따라서 번호도 같이 전송되게 하려면  input type="hidden" 으로 만들어놓고
 				form 전송했을 때 번호도 같이 전송되도록 한다. -->
-			<input type="hidden" name="num" value="<%=dto.getNum() %>" />	
+			<input type="hidden" name="num" value="<%=dto.getNum() %>" />
+			<input type="hidden" name="seq" value="<%=seq%>"/>	
 		</div>
 		<div class="form-group">
 			<label for="content">할일</label>
