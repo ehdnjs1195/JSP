@@ -25,6 +25,11 @@
 		alert("가입되었습니다.");
 		location.href="loginform.jsp";
 	</script>
-<%} %>
+<%}else{ %>
+	<script>
+		alert("사용중인 아이디입니다.")
+		location.href="signupform.jsp";
+	</script>
+<% }%>
 </body>
 </html>

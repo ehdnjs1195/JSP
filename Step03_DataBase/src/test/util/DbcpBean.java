@@ -15,6 +15,8 @@ public class DbcpBean {
 			Context initContext = new InitialContext();
 			Context envContext  = (Context)initContext.lookup("java:/comp/env");
 			DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
+			
+			//의미: Connection pool 에서 Connection 객체 하나 가져오기! close() 되는 시점에 반납됨.
 			conn = ds.getConnection();
 			System.out.println("Connection 얻어오기 성공!");
 		}catch(Exception e) {
