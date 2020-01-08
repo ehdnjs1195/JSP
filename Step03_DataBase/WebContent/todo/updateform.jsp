@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
 	int num=Integer.parseInt(request.getParameter("num"));
+	String seq=request.getParameter("seq");
 	TodoDto dto=TodoDao.getInstance().getData(num);
 %>
 <!DOCTYPE html>
