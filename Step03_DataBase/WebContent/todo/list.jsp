@@ -13,20 +13,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
-<style>	
-	/* navbar 가 상단에 고정 되어 있기 때문에 공간이 남는다. */
-	body{
-		padding-top: 50px;
-	}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/step03_custom.css" />
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/index.jsp">Acorn</a>
 		<ul class="nav navbar-nav">
+			<li><a href="../member/list.jsp">회원관리</a></li>
 			<li class="active"><a href="${pageContext.request.contextPath }/todo/list.jsp">할일 목록</a></li>				
-			<li><a href="https://www.riotgames.com/en" target="_blank">게임</a></li>
 			<li><a href="https://www.coupang.com/" target="_blank">쇼핑</a></li>
 			<li><a href="https://comic.naver.com/webtoon/weekday.nhn" target="_blank">웹툰</a></li>
 		</ul>
@@ -72,5 +67,6 @@
 		}
 	}
 </script>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

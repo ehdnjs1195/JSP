@@ -16,13 +16,7 @@
 <meta charset="UTF-8">
 <title>/member/list.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
-<style>	
-	/* navbar 가 상단에 고정 되어 있기 때문에 공간이 남는다. */
-	body{
-		padding-top: 50px;
-	}
-</style>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/step03_custom.css" />
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -30,7 +24,7 @@
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/index.jsp">Acorn</a>
 		<ul class="nav navbar-nav">
 			<li class="active"><a href="${pageContext.request.contextPath }/member/list.jsp">회원관리</a></li>				
-			<li><a href="https://www.riotgames.com/en" target="_blank">게임</a></li>
+			<li><a href="../todo/list.jsp">할일목록</a></li>
 			<li><a href="https://www.coupang.com/" target="_blank">쇼핑</a></li>
 			<li><a href="https://comic.naver.com/webtoon/weekday.nhn" target="_blank">웹툰</a></li>
 		</ul>
@@ -45,10 +39,7 @@
 
 	<h1>회원 목록 입니다.</h1>
 	<ul class="nav nav-tabs">
-		<li><a href="../index.jsp">홈으로 돌아가기</a></li>
-		<li><a href="list.jsp">회원 목록 보기</a></li>
-		<li><a href="insertform.jsp">회원추가 하러가기</a></li>
-		
+		<li><a href="insertform.jsp">회원추가 하러가기</a></li>	
 	</ul>
 	<table class="table table-bordered">
 		<thead>
@@ -73,9 +64,8 @@
 		</tbody>
 	</table>
 </div>
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>	
-<script src="${pageContext.request.contextPath }/resources/js/jquery.smooth-scroll.js"></script>
+<%-- /include/footer.jsp --%>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>
 
