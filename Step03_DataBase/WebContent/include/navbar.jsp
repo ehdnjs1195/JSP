@@ -25,6 +25,7 @@
 				<%-- if문으로 class="active"를 각 페이지에 맞게 동적으로 출력되도록 한다.--%>
 				<li <%if(category.equals("member")) {%>class="active"<%} %>><a href="${pageContext.request.contextPath }/member/list.jsp">회원관리</a></li>				
 				<li <%if(category.equals("todo")) {%>class="active"<%} %>><a href="${pageContext.request.contextPath }/todo/list.jsp">할일목록</a></li>
+				<li <%if(category.equals("board")) {%>class="active"<%} %>><a href="${pageContext.request.contextPath }/board/list.jsp">게시판</a></li>
 				<li><a href="#">쇼핑</a></li>
 				<li><a href="https://comic.naver.com/webtoon/weekday.nhn" target="_blank">웹툰</a></li>
 			</ul>

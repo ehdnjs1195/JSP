@@ -164,7 +164,6 @@ public class BoardDao {	//싱글톤으로 만들기. (dao객체는 오직 하나
 				BoardDto dto=new BoardDto();
 				dto.setNum(rs.getInt("num"));
 				dto.setWriter(rs.getString("writer"));
-				dto.setContent(rs.getString("content"));
 				dto.setPwd(rs.getString("pwd"));
 				dto.setTitle(rs.getString("title"));
 				dto.setRegdate(rs.getString("regdate"));
