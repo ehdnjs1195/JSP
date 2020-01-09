@@ -53,5 +53,5 @@
             </div>
         </div>
     </footer>
-    <section style="text-align:center; margin:10px auto;"><p>Designed by <a href="http://enfoplus.net">Prince J. Sargbah</a></p></section>
+    <section style="text-align:center; margin:10px auto;"><p>Designed by <a href="http://enfoplus.net"> <strong>A</strong>ragon <strong>D</strong>osigas<strong>W</strong>illiam </a></p></section>
 </div>

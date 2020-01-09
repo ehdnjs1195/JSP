@@ -14,32 +14,44 @@
 <head>
 <meta charset="UTF-8">
 <title>/board/updateform.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/step03_custom.css" />
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 </head>
 <body>
-	<div class="container">
-		<h1>글정보 수정 폼 입니다.</h1>
-		<p>글 번호: <strong><%=dto.getNum() %></strong></p>
-		<form action="update.jsp" method="post">
-			<input type="hidden" name="num" value="<%=dto.getNum() %>" />
-			<div>
-				<label for="writer">작성자</label>
-				<input type="text" name="writer" id="writer" value="<%=dto.getWriter() %>" />
-			</div>
-			<div>
-				<label for="title">제목</label>
-				<input type="text" name="title" id="title" value="<%=dto.getTitle() %>" />
-			</div>
-			<div>
-				<label for="content">내용</label>
-				<textarea name="content" id="content" cols="30" rows="10"><%=dto.getContent() %></textarea>
-			</div>
-			<div>
-				<label for="pwd">비밀번호</label>
-				<input type="password" name="pwd" id="pwd" placeholer="비밀번호 입력" />
-			</div>
-			<button type="submit">수정확인</button>
-			<button type="reset">취소</button>
-		</form>
-	</div>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="board" name="category"/>
+</jsp:include>
+<div class="container">
+	<ol class="breadcrumb">
+		<li><a href="list.jsp">게시판</a></li>
+		<li><a href="detail.jsp?num=<%=num%>">게시글 보기 페이지</a></li>
+		<li>게시글 수정 페이지</li>
+	</ol>
+	<h1>글정보 수정 폼 입니다.</h1>
+	<p>글 번호: <strong><%=dto.getNum() %></strong></p>
+	<form action="update.jsp" method="post">
+		<input type="hidden" name="num" value="<%=dto.getNum() %>" />
+		<div class="form-group">
+			<label for="writer">작성자</label>
+			<input class="form-control" type="text" name="writer" id="writer" value="<%=dto.getWriter() %>" />
+		</div>
+		<div class="form-group">
+			<label for="title">제목</label>
+			<input class="form-control" type="text" name="title" id="title" value="<%=dto.getTitle() %>" />
+		</div>
+		<div class="form-group">
+			<label for="content">내용</label>
+			<textarea class="form-control" name="content" id="content" cols="30" rows="10"><%=dto.getContent() %></textarea>
+		</div>
+		<div class="form-group">
+			<label for="pwd">비밀번호</label>
+			<input class="form-control" style="width:200px; display:inline;" type="password" name="pwd" id="pwd" placeholder="비밀번호 입력" />
+		</div>
+		<button class="btn btn-primary" type="submit">확인</button>
+		<a class="btn btn-warning" href="detail.jsp?num=<%=num%>">취소</a>
+	</form>
+</div>
 </body>
 </html>

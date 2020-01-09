@@ -18,9 +18,13 @@
 	<jsp:param value="board" name="category"/>
 </jsp:include>
 <div class="container">
+	<ol class="breadcrumb">
+		<li><a href="list.jsp">게시판</a></li>
+		<li>게시판 목록 페이지</li>
+	</ol>
 	<h1>게시글 목록 입니다.</h1>
-	<a href="insertform.jsp">글 작성하기</a>
-	<table>
+	<button class="btn"><a href="insertform.jsp"><i class="far fa-thumbs-up"></i>글 작성하기</a></button>
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th>글 번호</th>
@@ -45,5 +49,6 @@
 		</tbody>
 	</table>
 </div>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

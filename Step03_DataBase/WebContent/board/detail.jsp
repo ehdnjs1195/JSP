@@ -15,15 +15,25 @@
 <meta charset="UTF-8">
 <title>/board/detail.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/step03_custom.css" />
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="board" name="category"/>
+</jsp:include>
 <div class="container">
+	<ol class="breadcrumb">
+		<li><a href="list.jsp">게시판</a></li>
+		<li>게시글 보기 페이지</li>
+	</ol>
 	<h1>글 자세히 보기 페이지</h1>
 	<table class="table table-bordered">
 		<colgroup>
 			<col width="70"/>
 		</colgroup>
-		<tr>
+		<tr >
 			<th>글번호</th>
 			<td><%=dto.getNum() %></td>
 		</tr>
@@ -37,7 +47,7 @@
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea cols="30" rows="10" disabled><%=dto.getContent() %></textarea></td> <%-- textarea는 출력용으로 만든다. --%>
+			<td><textarea class="form-control" cols="30" rows="10" disabled><%=dto.getContent() %></textarea></td> <%-- textarea는 출력용으로 만든다. --%>
 		</tr>
 		<tr>
 			<th>등록일</th>
@@ -47,10 +57,11 @@
 	<!-- 삭제 기능을 수행할 폼 -->
 	<form action="delete.jsp" method="post">
 		<input type="hidden" name="num" value="<%=dto.getNum() %>"/>
-		<input type="password" name="pwd" placeholder="비밀번호입력" />
-		<button type="submit">삭제</button>
+		<input class="form-control" style="width:200px; display:inline;" type="password" name="pwd" placeholder="비밀번호입력" />
+		<button class="btn btn-danger" type="submit">삭제</button>
+		<a class="btn btn-warning" href="updateform.jsp?num=<%=dto.getNum()%>">수정</a>
+		<a class="btn btn-primary" href="list.jsp">돌아가기</a>
 	</form>
-	<a href="updateform.jsp?num=<%=dto.getNum()%>">수정</a>
 </div>
 </body>
 </html>
