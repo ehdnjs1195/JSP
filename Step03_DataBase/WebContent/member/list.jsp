@@ -35,7 +35,7 @@
 
 	<h1>회원 목록 입니다.</h1>
 	<ul class="nav nav-tabs">
-		<li><a href="insertform.jsp">회원추가 하러가기</a></li>	
+		<button class="btn"><a href="insertform.jsp">회원추가 <span class="glyphicon glyphicon-plus"></span></a></button>
 	</ul>
 	<table class="table table-bordered">
 		<thead>
@@ -53,8 +53,15 @@
 				<td><%=tmp.getNum() %></td>
 				<td><%=tmp.getName() %></td>
 				<td><%=tmp.getAddr() %></td>
-				<td><a href="updateform.jsp?num=<%=tmp.getNum()%>">수정</a></td>
-				<td><a href="delete.jsp?num=<%=tmp.getNum()%>">삭제</a></td>
+				<td><a href="updateform.jsp?num=<%=tmp.getNum()%>">
+					<!-- 스크린 리더기를 위한 기능 text 제공하기(아이콘으로 기능을 대체할 땐 항상 고려해야할 사항) -->
+					<span class="sr-only">수정하러가기</span>	<!-- 화면엔 안나오지만 포커스가 오면 시각장애인들을 위해 스크린리더기가 문자열을 읽어준다 -->
+					<span class="glyphicon glyphicon-edit"></span></a>
+				</td>
+				<td><a href="delete.jsp?num=<%=tmp.getNum()%>">
+					<span class="sr-only">삭제하기</span>
+					<span class="glyphicon glyphicon-trash"></span></a>
+				</td>
 			</tr>
 		<%} %>
 		</tbody>

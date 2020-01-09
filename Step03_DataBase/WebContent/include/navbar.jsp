@@ -7,12 +7,12 @@
 		category="";	//빈 문자열을 대입한다. (NullPointerException 방지) 아래 if문에서 category가 null이면 equals라는 메소드를 사용할 수 없기때문에 
 	}
 %>
-    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<!-- 홈페이지 링크와 버튼을 넣어둘 div -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${pageContext.request.contextPath }/index.jsp">Acorn</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath }/index.jsp"><i class="fab fa-youtube"></i>Acorn</a>
 			<button class="navbar-toggle" data-toggle="collapse" data-target="#one">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>

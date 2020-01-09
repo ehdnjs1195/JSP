@@ -28,7 +28,7 @@
 	</ol>
 	<h1>할 일 목록</h1>
 	<ul class="nav nav-tabs">
-		<li><a href="${pageContext.request.contextPath }/todo/insertform.jsp">할 일 추가하러 가기</a></li>
+		<button class="btn"><li><a href="${pageContext.request.contextPath }/todo/insertform.jsp">할 일 추가 <span class="glyphicon glyphicon-plus"></span></a></li></button>
 	</ul>
 	<table class="table table-hover">
 		<thead>
@@ -46,8 +46,14 @@
 				<td><%=tmp.getNum() %></td>
 				<td><%=tmp.getContent() %></td>
 				<td><%=tmp.getRegdate() %></td>
-				<td><a href="updateform.jsp?num=<%=tmp.getNum()%>">수정</a></td>
-				<td><a href="javascript:deleteConfirm(<%=tmp.getNum()%>);">삭제</a></td>
+				<td><a href="updateform.jsp?num=<%=tmp.getNum()%>">
+					<span class="sr-only">수정하러가기</span>	<!-- 화면엔 안나오지만 포커스가 오면 시각장애인들을 위해 스크린리더기가 문자열을 읽어준다 -->
+					<span class="glyphicon glyphicon-edit"></span></a>
+				</td>
+				<td><a href="javascript:deleteConfirm(<%=tmp.getNum()%>);">
+					<span class="sr-only">삭제하기</span>
+					<span class="glyphicon glyphicon-trash"></span></a>
+				</td>
 			</tr>
 		<%} %>
 		</tbody>

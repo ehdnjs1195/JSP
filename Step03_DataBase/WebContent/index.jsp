@@ -20,8 +20,9 @@
 	<h1 >인덱스 입니다!</h1>
 	<p> context path: ${pageContext.request.contextPath }</p>
 	<ul class="nav nav-pills">			
-		<li class="active"><a href="member/list.jsp" data-toggle="tab">회원목록보기(member table)</a></li>
+		<li class="active"><a href="member/list.jsp" data-toggle="tab">회원목록보기</a></li>
 		<li><a href="todo/list.jsp">할일목록</a></li>
+		<li><a href="board/list.jsp">게시판</a></li>
 	</ul>
 	<!-- 깃허브에서 gist 가져오기. <script src="https://gist.github.com/ehdnjs1195/e7f36d95eda04373fb6860cd3c3cc82c.js"></script> -->
 </div>
