@@ -14,11 +14,15 @@
 <head>
 <meta charset="UTF-8">
 <title>/board/detail.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 </head>
 <body>
 <div class="container">
 	<h1>글 자세히 보기 페이지</h1>
-	<table>
+	<table class="table table-bordered">
+		<colgroup>
+			<col width="70"/>
+		</colgroup>
 		<tr>
 			<th>글번호</th>
 			<td><%=dto.getNum() %></td>
@@ -40,6 +44,13 @@
 			<td><%=dto.getRegdate() %></td>
 		</tr>
 	</table>
+	<!-- 삭제 기능을 수행할 폼 -->
+	<form action="delete.jsp" method="post">
+		<input type="hidden" name="num" value="<%=dto.getNum() %>"/>
+		<input type="password" name="pwd" placeholder="비밀번호입력" />
+		<button type="submit">삭제</button>
+	</form>
+	<a href="updateform.jsp?num=<%=dto.getNum()%>">수정</a>
 </div>
 </body>
 </html>

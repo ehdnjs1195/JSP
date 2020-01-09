@@ -89,7 +89,7 @@ public class BoardDao {	//싱글톤으로 만들기. (dao객체는 오직 하나
 		int flag = 0;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "delete from board_seq"
+			String sql = "delete from board_free"
 					+ " where num=?";
 			pstmt = conn.prepareStatement(sql);
 			//?에 값 바인딩하기
@@ -119,7 +119,8 @@ public class BoardDao {	//싱글톤으로 만들기. (dao객체는 오직 하나
 		ResultSet rs = null;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "select * from board_free"
+			String sql = "select num,writer,title,content,pwd,to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate"
+					+ " from board_free"
 					+ " where num=?";
 			pstmt = conn.prepareStatement(sql);
 			// ? 에 값 바인딩 
@@ -156,8 +157,9 @@ public class BoardDao {	//싱글톤으로 만들기. (dao객체는 오직 하나
 		ResultSet rs = null;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "select * from board_free" + 
-						" order by num desc";
+			String sql = "select num,writer,title,pwd,to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate "
+					+ " from board_free" + 
+					" order by num desc";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
