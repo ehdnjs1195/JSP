@@ -15,7 +15,7 @@
 <title>/test3/other.jsp</title>
 </head>
 <body>
-	<p>request의 myName : <strong><%=myName %></strong></p>		<!-- other.jsp로 왔을때  응답이 이미 끝났으므로 null -->
+	<p>request의 myName : <strong><%=myName %></strong></p>		<!-- other.jsp로 왔을때  응답이 이미 끝났으므로 null, 하나의 jsp에서만 사용할 수 있다. -->
 	<p>session의 yourName: <strong><%=yourName %></strong></p>	<!-- 웹 브라우저를 닫았다가 주소를 다시 입력해서 갔을때 null -->
 	<p>application의 ourName: <strong><%=ourName %></strong></p>	<!-- 서버를 restart 했을 때 null -->
 	<a href="reset.jsp">모든 영역에 담긴 내용  삭제하러 가기</a>
