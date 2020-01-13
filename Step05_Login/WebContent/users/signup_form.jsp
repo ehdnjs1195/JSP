@@ -7,6 +7,12 @@
 <title>/users/signupform.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/step03_custom.css" />
+<style>
+	/*페이지 로딩 시점에 도움말과 피드백 아이콘은 일단 숨기기*/
+	.help-block, .form-control-feedback{
+		display: none;
+	}
+</style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 </head>
@@ -14,12 +20,14 @@
 <div class="container">
 	<h1>회원가입 페이지</h1>
 	<form action="signup.jsp" method="post" id="signupForm">
-		<div>
-			<label for="id">아이디</label>
-			<input type="text" id="id" name="id" />
-			<button id="checkBtn">중복확인</button>		<!-- form 안에 버튼을 넣으면 default로 제출이 되어 버린다. 우선 제출이 되는 것을 막아야 한다. -->
-			<span id="checkResult"></span>
+		<div class="form-group has-feedback">
+			<label class="control-label" for="id">아이디</label>
+			<input class="form-control" type="text" id="id" name="id" />
+			<p class="help-block" id="msg_notuse" >사용 불가능한 아이디 입니다.</p>
+			<span  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
+		
 		<div>
 			<label for="pwd">비밀번호</label>
 			<input type="password" id="pwd" name="pwd"/>
@@ -41,8 +49,8 @@
 	//아이디의 유효성 여부를 확인할 변수.
 	var isIdValid=false;
 
-	//중복확인 버튼을 눌렀을 때 실행할 함수 등록
-	$("#checkBtn").on("click", function(){
+	//아이디를 입력할 때 실행할 함수 등록(입력할 때 마다 함수 실행.)
+	$("#id").on("input", function(){
 		//1. 입력한 아이디를 읽어온다.
 		var inputId=$("#id").val();
 		//2. 서버에 보내서 사용가능 여부를 응답받는다. (페이지 이동없이 자바스크립트로 원하는 시점에 요청을 하는 작업. 요청과 함께 파라미터를 전달.  	지금 까지는 링크를 누르거나 submit 버튼을 눌러서 요청을 해왔었다.)
@@ -51,17 +59,27 @@
 			method:"GET",	//요청 메소드
 			data:{inputId:inputId},		//data라는 방에 요청 할 때 요청파라미터를 전달(콤마로 여러개의 파라미터를 전달). inputId라는 파라미터 명으로 inputId 값을 전달. (checkid.jsp?inputId=inputId 가 된다.)
 			success:function(responseData){		//응답이 되면(버튼을 누르면) 이 funcion이 호출된다. 응답한 인자로 responseData가 전달된다. jsp 문자열 전체가 전달된다.
-				console.log(responseData);	//콘솔로그로 확인 가능.
+				//일단 초기화 시켜놓고
+				$("#id").parent().removeClass("has-success has-error").find(".form-control-feedback").hide(); 	//#id 요소의 부모요소 선택. class 지우고, form-control-feedback 모두 찾아서 숨기기.
+				console.log(responseData);								//find 자손요소 중에서 클래스명이 xxx인것 찾기. 찾아서 숨기기.
 				if(responseData.isExist){//아이디가 이미 존재하는 경우(사용불가)
-					$("#checkResult").text("사용불가").css("color","red");
+					//색상을 빨간색으로
+					$("#id").parent().addClass("has-error").find(".glyphicon-remove").show();
+					//에러메세지 보이게
+					$("#msg_notuse").show();
+					//상태 바꾸기
 					isIdValid=false;
-				}else{ //아닌경우(사용가능)
-					$("#checkResult").text("사용가능").css("color","green");
+				}else{ //아닌경우(사용가능)	
+					//색상을 초록색으로
+					$("#id").parent().addClass("has-success").find(".glyphicon-ok").show();
+					//에러메세지 안보이게
+					$("#msg_notuse").hide();
+					//상태 바꾸기
 					isIdValid=true;
 				}
 			}
 		});		//이렇게 요청을 하고도 페이지 전환 없이 응답하는 것을 ajax 통신이라 한다. (비동기 통신. 요청하고 응답이 오면 success 함수를 호출하고 끝.) =>보통 ajax 요청에 대한 응답은 xml,json 형식으로 한다.
-		return false; //폼 전송 막기
+		//폼 전송은 막을 필요가 없다.
 	});
 	
 	// 폼에 제출 이벤트가 발생했을 때 실행할 함수 등록
