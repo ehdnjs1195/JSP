@@ -18,6 +18,7 @@
 			<label for="id">아이디</label>
 			<input type="text" id="id" name="id" />
 			<button id="checkBtn">중복확인</button>		<!-- form 안에 버튼을 넣으면 default로 제출이 되어 버린다. 우선 제출이 되는 것을 막아야 한다. -->
+			<span id="checkResult"></span>
 		</div>
 		<div>
 			<label for="pwd">비밀번호</label>
@@ -43,8 +44,13 @@
 			data:{inputId:inputId},		//data라는 방에 요청 할 때 요청파라미터를 전달(콤마로 여러개의 파라미터를 전달). inputId라는 파라미터 명으로 inputId 값을 전달. (checkid.jsp?inputId=inputId 가 된다.)
 			success:function(responseData){		//응답이 되면(버튼을 누르면) 이 funcion이 호출된다. 응답한 인자로 responseData가 전달된다. jsp 문자열 전체가 전달된다.
 				console.log(responseData);	//콘솔로그로 확인 가능.
+				if(responseData.isExist){//아이디가 이미 존재하는 경우(사용불가)
+					$("#checkResult").text("사용불가").css("color","red");
+				}else{ //아닌경우(사용가능)
+					$("#checkResult").text("사용가능").css("color","green");
+				}
 			}
-		});		//이렇게 요청을 하고도 페이지 전환 없이 응답하는 것을 ajax 통신이라 한다. (비동기 통신. 요청하고 응답이 오면 success 함수를 호출하고 끝.) =>보통 ajax 요청에 대한 응답은 json 형식으로 한다.
+		});		//이렇게 요청을 하고도 페이지 전환 없이 응답하는 것을 ajax 통신이라 한다. (비동기 통신. 요청하고 응답이 오면 success 함수를 호출하고 끝.) =>보통 ajax 요청에 대한 응답은 xml,json 형식으로 한다.
 		return false; //폼 전송 막기
 	});
 </script>

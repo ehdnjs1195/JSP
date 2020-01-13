@@ -18,6 +18,40 @@ public class UsersDao {	//싱글톤
 		}
 		return dao;
 	}
+	//인자로 전달되는 아이디가 존재하는지 여부를 리턴하는 메소드
+	public boolean isExist(String inputId) {
+		boolean isExist=false; //아이디가 이미 존재하는지 여부.(아직까진 없다)
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = new DbcpBean().getConn();
+			String sql = "select id from users"
+					+ " where id=?";
+			pstmt = conn.prepareStatement(sql);
+			// ? 에 값 바인딩 
+			pstmt.setString(1, inputId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {	//select된 결과가 있으면 실행순서가 들어옴. 없으면 건너뛴다.
+				isExist=true;	//이미 존재하는 아이디 임으로 true로 바꿔준다.
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				//connection pool 에 반납하기 
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return isExist;	//아이디가 이미 존재하는지 여부를 리턴해준다.
+	}
+	
 	//인자로 전달되는 UsersDto에 담긴 정보가 유효한 정보인지 여부를 리턴해주는 메소드
 	public boolean isValid(UsersDto dto) {
 		boolean isValid=false;
