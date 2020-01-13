@@ -18,6 +18,39 @@ public class UsersDao {	//싱글톤
 		}
 		return dao;
 	}
+	//인자로 전달되는 회원정보를(이메일) DB에 수정 반영하는 메소드
+	public boolean update(UsersDto dto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int flag = 0;
+		try {
+			conn = new DbcpBean().getConn();
+			String sql = "update users"
+					+ " set email=?"
+					+ " where id=?";
+			pstmt = conn.prepareStatement(sql);
+			//?에 값 바인딩하기
+			pstmt.setString(1, dto.getEmail());
+			pstmt.setString(2, dto.getId());
+			flag = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		if (flag > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	//인자로 전달되는 아이디에 해당하는 가입 정보를 리턴해주는 메소드
 	public UsersDto	getData(String id) {
 		UsersDto dto=null;
