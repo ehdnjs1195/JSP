@@ -14,9 +14,9 @@
 <div class="container">
 	<h1>회원가입 페이지</h1>
 	<form action="signup.jsp" method="post" id="signupForm">
-		<div>
+		<div class="form-group">
 			<label for="id">아이디</label>
-			<input type="text" id="id" name="id" />
+			<input class="form-control" type="text" id="id" name="id" />
 			<button id="checkBtn">중복확인</button>		<!-- form 안에 버튼을 넣으면 default로 제출이 되어 버린다. 우선 제출이 되는 것을 막아야 한다. -->
 			<span id="checkResult"></span>
 		</div>
