@@ -24,22 +24,29 @@
 			<label class="control-label" for="id">아이디</label>
 			<input class="form-control" type="text" id="id" name="id" />
 			<p class="help-block" id="msg_notuse" >사용 불가능한 아이디 입니다.</p>
+			<p class="help-block" id="msg_null" >반드시 입력해 주세요!!</p>
 			<span  class="glyphicon glyphicon-remove form-control-feedback"></span>
 			<span  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
 		
-		<div>
-			<label for="pwd">비밀번호</label>
-			<input type="password" id="pwd" name="pwd"/>
+		<div class="form-group has-feedback">
+			<label class="control-label" for="pwd">비밀번호</label>
+			<input class="form-control" type="password" id="pwd" name="pwd"/>
+			<p class="help-block" id="msg_pwdCheck" >비밀번호를 확인하세요!!</p>
+			<span  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
-		<div>
-			<label for="pwd2">비밀번호 확인</label>
-			<input type="password" id="pwd2" name="pwd2"/>
+		<div class="form-group">
+			<label class="control-label" for="pwd2">비밀번호 확인</label>
+			<input class="form-control" type="password" id="pwd2" name="pwd2"/>
 			<span id="pwdCheck"	></span>
 		</div>
-		<div>
-			<label for="email">이메일</label>
-			<input type="email" id="email" name="email" />
+		<div class="form-group has-feedback">
+			<label class="control-label" for="email">이메일</label>
+			<input class="form-control" type="email" id="email" name="email" />
+			<p class="help-block" id="msg_emailCheck" >이메일 형태로 작성하세요!!</p>
+			<span  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
 		<button type="submit">가입</button>
 		<button type="reset">취소</button>
@@ -74,12 +81,71 @@
 					$("#id").parent().addClass("has-success").find(".glyphicon-ok").show();
 					//에러메세지 안보이게
 					$("#msg_notuse").hide();
+					if(responseData.isNull){
+						$("#id").parent().addClass("has-error").find(".glyphicon-remove").show();
+						$("#id").parent().find(".glyphicon-ok").hide();
+						$("#msg_null").show();
+					}else{
+						$("#id").parent().addClass("has-success").find(".glyphicon-ok").show();
+						$("#msg_null").hide();
+					}
 					//상태 바꾸기
 					isIdValid=true;
 				}
 			}
 		});		//이렇게 요청을 하고도 페이지 전환 없이 응답하는 것을 ajax 통신이라 한다. (비동기 통신. 요청하고 응답이 오면 success 함수를 호출하고 끝.) =>보통 ajax 요청에 대한 응답은 xml,json 형식으로 한다.
 		//폼 전송은 막을 필요가 없다.
+	});
+	
+	//비밀번호 확인
+	var pwdEqual=false;
+	var c=$("#pwd2").on("input",function(){
+		var pwd=$("#pwd").val();
+		var pwd2=$("#pwd2").val();
+		$("#pwdCheck").hide();
+		$("#pwd").parent().removeClass("has-success has-error").find(".form-control-feedback").hide();	//초기화
+		if(pwd != pwd2){
+			$("#pwd").parent().addClass("has-error").find(".glyphicon-remove").show();
+			$("#msg_pwdCheck").show();
+			pwdEqual=false;
+			return pwdEqual;
+		}else{
+			$("#pwd").parent().addClass("has-success").find(".glyphicon-ok").show();
+			$("#msg_pwdCheck").hide();
+			pwdEqual=true;
+			return pwdEqual;
+		}
+	});
+	$("#pwd").on("input",function(){
+		var pwd=$("#pwd").val();
+		var pwd2=$("#pwd2").val();
+		$("#pwdCheck").hide();
+		$("#pwd").parent().removeClass("has-success has-error").find(".form-control-feedback").hide();	//초기화
+		if(pwd != pwd2){
+			$("#pwd").parent().addClass("has-error").find(".glyphicon-remove").show();
+			$("#msg_pwdCheck").show();
+			pwdEqual=false;
+			return pwdEqual;
+		}else{
+			$("#pwd").parent().addClass("has-success").find(".glyphicon-ok").show();
+			$("#msg_pwdCheck").hide();
+			pwdEqual=true;
+			return pwdEqual;
+		}
+	});
+	
+	//이메일 형식 확인
+	$("#email").on("input", function(){
+		var email=$("#email").val();
+		var emailValid=email.match("@");	// @가 포함되어 있는지 체크함.
+		$("#email").parent().removeClass("has-success has-error").find(".form-control-feedback").hide();
+		if(emailValid == null){
+			$("#email").parent().addClass("has-error").find(".glyphicon-remove").show();
+			$("#msg_emailCheck").show();
+		}else{
+			$("#email").parent().addClass("has-success").find(".glyphicon-ok").show();
+			$("#msg_emailCheck").hide();
+		}
 	});
 	
 	// 폼에 제출 이벤트가 발생했을 때 실행할 함수 등록
@@ -96,9 +162,7 @@
 		}
 		
 		//2. 비밀번호 유효성 검증
-		var pwd=$("#pwd").val();
-		var pwd2=$("#pwd2").val();
-		if(pwd != pwd2){
+		if(!pwdEqual){
 			alert("비밀번호를 확인 하세요!");
 			$("#pwdCheck").text("비밀번호를 확인하세요").css("color","red");
 			$("#pwd").focus();

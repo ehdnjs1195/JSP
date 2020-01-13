@@ -7,6 +7,14 @@
 	String inputId=request.getParameter("inputId");
 	// 2. DB에 이미 존재하는 아이디 인지 확인한다.
 	boolean isExist=UsersDao.getInstance().isExist(inputId);
+	boolean isNull=true;
+	if(inputId.isEmpty()){
+		isNull=true;
+	}else if(inputId.contains(" ")){
+		isNull=true;
+	}else{
+		isNull=false;
+	}
 	// 3. 존재하는지 여부를 json 형식으로 문자열로 응답한다.(javascript 사용이 편하기 때문에)
 %>    								
-{"isExist":<%=isExist %>}
+{"isExist":<%=isExist %>,"isNull":<%=isNull%>}
