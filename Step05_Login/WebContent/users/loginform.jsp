@@ -10,7 +10,7 @@
 <%
 	// "url" 이라는 파라미터가 넘어오는지 읽어와 본다.
 	String url=request.getParameter("url");
-	if(url==null){//만일 없으면(로그인이 안되어 있으면)
+	if(url==null){//만일 없으면  (url이 null인 경우는 필터를 거치지 않고 loginform.jsp로 왔을 때이다. ex) index.jsp에서 로그인 버튼 눌렀을 때)
 		//로그인 성공후에 index.jsp 페이지로 보낼 수 있도록 구성한다.
 		url=request.getContextPath()+"/index.jsp";
 	}

@@ -7,11 +7,10 @@
 	//목적지 정보
 	String url=request.getParameter("url");
 	if(url==null){
-		url=request.getContextPath()+"/index.jsp";
+		url=request.getContextPath()+"/index.jsp";		//질문 url이 null인 경우가 생기는가? 이미 앞의 loginform.jsp에서 null인 경우를 거르게 되는게 아닌가?
 	}
 	//목적지 정보를 미리 인코딩 해놓는다.
 	String encodedUrl=URLEncoder.encode(url);	//파라미터로 받으면 인코딩된것이 다시 디코딩 되어 나오기 때문에 =>인코딩이 필요하다.
-
 	//1. 폼 전송되는 아이디, 비밀번호를 읽어와서
 	String id=request.getParameter("id");
 	String pwd=request.getParameter("pwd");

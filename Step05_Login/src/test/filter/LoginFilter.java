@@ -41,14 +41,14 @@ public class LoginFilter implements Filter{
 		if(id !=null) {//로그인 된 상태
 			//관여하지 않고 요청의 흐름 계속 진행 시키기.
 			chain.doFilter(req, res);
-		}else {//로그아웃 된 상태
+		}else {//로그인 안 된 상태
 			/*
 			 * 	로그인 후에 원래 가려던 목적지로 다시 보내야 하고
 			 *  전송되던 파라미터가 있다면 파라미터 정보도 같이 넘겨줘야 한다.
 			 */
 			// 원래 가려던 url 정보 읽어오기
-			String url=request.getRequestURI();
-			// GET 방식 파라미터 문자열 있으면 읽어오기 (num=1&name=coffee... 쿼리문자열)
+			String url=request.getRequestURI();		//여기서는 /Step05_Login/shop/buy.jsp 이다.
+			// GET 방식 파라미터 문자열 있으면 읽어오기 (num=1&name=coffee... 쿼리문자열) 쿼리문자열: 전달되는 파라미터 값
 			String query=request.getQueryString();
 			// 원래목적지?num=1&name=coffee 형식의 인코딩된 문자열 구성하기
 			String encodedUrl=null;
@@ -61,7 +61,7 @@ public class LoginFilter implements Filter{
 			HttpServletResponse response=(HttpServletResponse)res;
 			String cPath=request.getContextPath();
 			//로그인 폼으로 리다일렉트 시킨다.
-			response.sendRedirect(cPath+"/users/loginform.jsp?url="+encodedUrl);	//파라미터로 url을 들고갈 때 인코딩을 해서 가져간다! why?모든 파라미터를 가져갈 수 없기 때문에.(몇개는 떨어지고 못 가져가는 일이 생긴다)
+			response.sendRedirect(cPath+"/users/loginform.jsp?url="+encodedUrl);	//파라미터로 url을 들고갈 때는 인코딩을 해서 가져간다! URL에는 여러가지 규칙이 있고 그 규칙에 사용되는 문자들이 정해져있기 때문에 특정한 값들은 규칙에 맞게 변환되어야 합니다.
 		}
 		
 	}
