@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>/users/signupform.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/step03_custom.css" />
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 </head>
 <body>
 <div class="container">
@@ -13,6 +17,7 @@
 		<div>
 			<label for="id">아이디</label>
 			<input type="text" id="id" name="id" />
+			<button id="checkBtn">중복확인</button>		<!-- form 안에 버튼을 넣으면 default로 제출이 되어 버린다. 우선 제출이 되는 것을 막아야 한다. -->
 		</div>
 		<div>
 			<label for="pwd">비밀번호</label>
@@ -26,5 +31,22 @@
 		<button type="reset">취소</button>
 	</form>
 </div>
+<script>
+	//중복확인 버튼을 눌렀을 때 실행할 함수 등록
+	$("#checkBtn").on("click", function(){
+		//1. 입력한 아이디를 읽어온다.
+		var inputId=$("input[name=id]").val();
+		//2. 서버에 보내서 사용가능 여부를 응답받는다. (페이지 이동없이 자바스크립트로 원하는 시점에 요청을 하는 작업. 요청과 함께 파라미터를 전달.  	지금 까지는 링크를 누르거나 submit 버튼을 눌러서 요청을 해왔었다.)
+		$.ajax({	//object를 전달.  key:value, key:value ... 전달.
+			url:"${pageContext.request.contextPath }/users/checkid.jsp",		//요청 url
+			method:"GET",	//요청 메소드
+			data:{inputId:inputId},		//data라는 방에 요청 할 때 요청파라미터를 전달(콤마로 여러개의 파라미터를 전달). inputId라는 파라미터 명으로 inputId 값을 전달. (checkid.jsp?inputId=inputId 가 된다.)
+			success:function(responseData){		//응답이 되면(버튼을 누르면) 이 funcion이 호출된다. 응답한 인자로 responseData가 전달된다. jsp 문자열 전체가 전달된다.
+				console.log(responseData);	//콘솔로그로 확인 가능.
+			}
+		});		//이렇게 요청을 하고도 페이지 전환 없이 응답하는 것을 ajax 통신이라 한다. (비동기 통신. 요청하고 응답이 오면 success 함수를 호출하고 끝.) =>보통 ajax 요청에 대한 응답은 json 형식으로 한다.
+		return false; //폼 전송 막기
+	});
+</script>
 </body>
 </html>
