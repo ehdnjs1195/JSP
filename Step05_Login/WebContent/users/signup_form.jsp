@@ -68,6 +68,11 @@
 	//이메일을 입력했는지 여부
 	var isEmailInput=false;
 	
+	//아이디 입력란에 한 번이라도 입력한 적이 있는지 여부(id를 입력했을 때 비밀번호에서 경고메세지가 뜨는 버그가 있기 때문에)
+	var isIdDirty=false;
+	//비밀번호 입력란에 한 번이라도 입력한 적이 있는지 여부
+	var isPwdDirty=false;
+	
 	//이메일을 입력할 때 실행할 함수 등록
 	$("#email").on("input", function(){
 		var email=$("#email").val();
@@ -90,6 +95,10 @@
 	
 	//비밀번호를 입력할 때 실행할 함수 등록
 	$("#pwd, #pwd2").on("input", function(){
+		//입력했는지 상태값을 바꿔준다.
+		isPwdDirty=true;
+		
+		//입력한 비밀번호를 읽어온다.
 		var pwd=$("#pwd").val();
 		var pwd2=$("#pwd2").val();
 		
@@ -111,6 +120,9 @@
 
 	//아이디를 입력할 때 실행할 함수 등록(입력할 때 마다 함수 실행.)
 	$("#id").on("input", function(){
+		//입력했는지 상태값을 바꿔준다.
+		isIdDirty=true;
+		
 		//1. 입력한 아이디를 읽어온다.
 		var inputId=$("#id").val();
 		//2. 서버에 보내서 사용가능 여부를 응답받는다. (페이지 이동없이 자바스크립트로 원하는 시점에 요청을 하는 작업. 요청과 함께 파라미터를 전달.  	지금 까지는 링크를 누르거나 submit 버튼을 눌러서 요청을 해왔었다.)
@@ -157,27 +169,24 @@
 		if(isEmailInput && !isEmailMatch){
 			$("#email_notmatch").show();
 		}
-		if(!isPwdEqual){
+		if(!isPwdEqual && isPwdDirty){
 			$("#pwd_notequal").show();
 		}
-		if(!isPwdInput){
+		if(!isPwdInput && isPwdDirty){
 			$("#pwd_required").show();
 		}
-		if(!isIdUsable){
+		if(!isIdUsable && isIdDirty){
 			$("#id_notusable").show();
 		}
-		if(!isIdInput){
+		if(!isIdInput && isIdDirty){
 			$("#id_required").show();
 		}
-		//버튼의 상태 바꾸기
 		if (isIdUsable && isIdInput && isPwdEqual && isPwdInput	&& (!isEmailInput || isEmailMatch)) {
 			$("button[type=submit]").removeAttr("disabled");
 		} else {
 			$("button[type=submit]").attr("disabled", "disabled");
 		}
 	}
-	
-
 	
 </script>
 </body>
