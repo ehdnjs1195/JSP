@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(value = {"/shop/*", "/users/private/*"})	// value 기능을 이용하여	shop하위의 모든 요청, private 하위 모든 요청에 대해서 필터링
+@WebFilter(value = {"/shop/*", "/users/private/*", "/cafe/private/*"})	// value 기능을 이용하여	shop하위의 모든 요청, private 하위 모든 요청에 대해서 필터링
 public class LoginFilter implements Filter{
 
 	@Override
