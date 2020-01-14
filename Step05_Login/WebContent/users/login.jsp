@@ -7,7 +7,7 @@
 	//목적지 정보
 	String url=request.getParameter("url");
 	if(url==null){
-		url=request.getContextPath()+"/index.jsp";		//질문 url이 null인 경우가 생기는가? 이미 앞의 loginform.jsp에서 null인 경우를 거르게 되는게 아닌가?
+		url=request.getContextPath()+"/index.jsp";		//질문 url이 null인 경우가 생기는가? 이미 앞의 loginform.jsp에서 null인 경우를 거르게 되는게 아닌가?	=>답: 항상 loginform.jsp 에서만 로그인이 되는것이 아니라 예를들어 네비바에서 로그인을 하거나 등등의 경우가 있을 수 있으니 login.jsp에서도 한 번 걸러주는 것이 맞다.
 	}
 	//목적지 정보를 미리 인코딩 해놓는다.
 	String encodedUrl=URLEncoder.encode(url);	//파라미터로 받으면 인코딩된것이 다시 디코딩 되어 나오기 때문에 =>인코딩이 필요하다.
