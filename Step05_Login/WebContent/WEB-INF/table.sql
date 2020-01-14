@@ -23,4 +23,4 @@ from
 		(select num,writer,title	--1.줄세우고
 		from board_cafe
 		order by num desc) result1)
-where rnum between 6 and 10;
+where rnum between ? and ?;			--몇번 페이지인지
