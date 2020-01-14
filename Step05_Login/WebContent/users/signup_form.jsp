@@ -32,20 +32,24 @@
 		<div class="form-group has-feedback">
 			<label class="control-label" for="pwd">비밀번호</label>
 			<input class="form-control" type="password" id="pwd" name="pwd"/>
-			<p class="help-block">반드시 입력하세요</p>
-			<p class="help-block">아래의 확인란과 동일하게 입력하세요</p>
-			
+			<p class="help-block" id="pwd_required">반드시 입력하세요</p>
+			<p class="help-block" id="pwd_notequal">아래의 확인란과 동일하게 입력하세요</p>
+			<span  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="pwd2">비밀번호 확인</label>
 			<input class="form-control" type="password" id="pwd2" name="pwd2"/>
 		</div>
-		<div>
-			<label for="email">이메일</label>
-			<input type="email" id="email" name="email" />
+		<div class="form-group has-feedback">
+			<label class="control-label" for="email">이메일</label>
+			<input class="form-control" type="email" id="email" name="email" />
+			<p class="help-block" id="email_notmatch">이메일 형식에 맞게 입력하세요.</p>
+			<span  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
-		<button type="submit">가입</button>
-		<button type="reset">취소</button>
+		<button disabled="disabled" class="btn btn-primary" type="submit">가입</button>
+		<button class="btn btn-warning" type="reset">취소</button>
 	</form>
 </div>
 <script>
@@ -53,6 +57,51 @@
 	var isIdUsable=false;
 	//아이디를 입력했는지 여부
 	var isIdInput=false;		//둘중에 하나라도 false면 아이디 칸은 빨간색으로 나와야 함!
+	
+	//비밀번호를 확인란과 같게 입력했는지 여부
+	var isPwdEqual=false;
+	//비밀번호를 입력했는지 여부
+	var isPwdInput=false;
+	
+	//이메일을 형식에 맞게 입력했는지 여부
+	var isEmailMatch=false;
+	//이메일을 입력했는지 여부
+	var isEmailInput=false;
+	
+	//이메일을 입력할 때 실행할 함수 등록
+	$("#email").on("input", function(){
+		var email=$("#email").val();
+		
+		if(email.match("@")){	//이메일 형식에 맞게 입력 했다면
+			isEmailMatch=true;
+		}else{	//형식에 맞지 않게 입력했다면
+			isEmailMatch=false;
+		}
+		if(email.length == 0){	//이메일을 입력하지 않았다면 
+			isEmailInput=false;
+		}else{		//이메일을 입력 했다면
+			isEmailInput=true;
+		}
+		setEmailState();
+	});
+	
+	//비밀번호를 입력할 때 실행할 함수 등록
+	$("#pwd, #pwd2").on("input", function(){
+		var pwd=$("#pwd").val();
+		var pwd2=$("#pwd2").val();
+		
+		if(pwd!=pwd2){	//두 비밀번호가 같지 않을 때		3항 연산자로 (isPwdEqual = pwd != pwd2 ? false : true ;)
+			isPwdEqual=false;
+		}else{
+			isPwdEqual=true;
+		}
+		if(pwd.length == 0){
+			isPwdInput=false;
+		}else{
+			isPwdInput=true;
+		}
+		setPwdState();
+	});
 
 	//아이디를 입력할 때 실행할 함수 등록(입력할 때 마다 함수 실행.)
 	$("#id").on("input", function(){
@@ -82,6 +131,53 @@
 		}
 		setIdState();
 	});
+	
+	//입력란의 상태를 바꾸는 함수
+	function setState(sel, isError){	//sel: 선택인자, isError: 에러여부검사
+		$(sel).parent().removeClass("has-success has-error").find(".help-block, .form-control-feedback").hide();
+		
+		if(isError){
+			
+		}else{
+			
+		}
+	
+	}
+	
+	//이메일 입력란의 상태를 바꾸는 함수
+	function setEmailState(){
+		$("#email").parent().removeClass("has-success has-error").find(".help-block, .form-control-feedback").hide();
+		//색상과 아이콘을 바꿔주는 작업
+		if(isEmailInput && !isEmailMatch){	//이메일의 error인 상태 (이메일 작성은 선택이므로, 이메일을 썼을 때 형식이 맞는지 확인)
+			$("#email").parent().addClass("has-error").find(".glyphicon-remove").show();
+		}else{	//비밀번호 입력란이 success인 상태
+			$("#email").parent().addClass("has-success").find(".glyphicon-ok").show();
+		}
+		//에러가 있다면 에러 메세지 띄우기
+		if(isEmailInput && !isEmailMatch){
+			$("#email_notmatch").show();
+		}
+	}
+	
+	
+	//비밀번호 입력란의 상태를 바꾸는 함수
+	function setPwdState(){
+		$("#pwd").parent().removeClass("has-success has-error").find(".help-block, .form-control-feedback").hide();
+		//색상과 아이콘을 바꿔주는 작업
+		if(!isPwdEqual || !isPwdInput){	//비밀번호 입력란이 error인 상태
+			$("#pwd").parent().addClass("has-error").find(".glyphicon-remove").show();
+		}else{	//비밀번호 입력란이 success인 상태
+			$("#pwd").parent().addClass("has-success").find(".glyphicon-ok").show();
+		}
+		//에러가 있다면 에러 메세지 띄우기
+		if(!isPwdEqual){
+			$("#pwd_notequal").show();
+		}
+		if(!isPwdInput){
+			$("#pwd_required").show();
+		}
+	}
+	
 	//아이디 입력란의 상태를 바꾸는 함수
 	function setIdState(){
 		//일단 UI를 초기상태로 바꿔준다.
@@ -102,39 +198,12 @@
 		}
 	}
 	
-	// 폼에 제출 이벤트가 발생했을 때 실행할 함수 등록
-	$("#signupForm").on("submit", function(){		//제출 버튼을 눌렀을 때 실행순서가 이 안으로 들어온다.
-		//폼의 유효성 검증을 하고 만일 통과를 못하면 폼 제출을 막는다.
-		
-		//1. 아이디 유효성 검증
-		if(!isIdValid){	
-			//잘못되었다는 메세지를 띄우고
-			alert("아이디 중복확인을 하세요!");
-			//잘못된 곳을 바로 입력할 수 있도록 포커스 주기
-			$("#id").focus();	
-			return false;	//폼 제출 막기	(폼 유효성 검증과정.)
-		}
-		
-		//2. 비밀번호 유효성 검증
-		var pwd=$("#pwd").val();
-		var pwd2=$("#pwd2").val();
-		if(pwd != pwd2){
-			alert("비밀번호를 확인 하세요!");
-			$("#pwdCheck").text("비밀번호를 확인하세요").css("color","red");
-			$("#pwd").focus();
-			return false;
-		}
-		
-		//3. 이메일 유효성 검증
-		var email=$("#email").val();
-		// @ 가 포함되어 있는지 확인한다. 만일 포함되어 있지 않으면 null 이 리턴된다.
-		var emailValid=email.match("@");	// @가 포함되어 있는지 체크함.
-		if(emailValid == null){
-			alert("이메일 형식에 맞게 입력하세요!");
-			$("#email").focus();
-			return false;
-		}
-	});
+	if(isIdUsable==false || isPwdEqual==false || isPwdInput==false || isEmailMatch==false){
+		$("#button[type=submit]").removeAttr("disabled");
+	}else{
+		$("#button[type=submit]").attr("disabled", "disabled");
+	}
+
 </script>
 </body>
 </html>
