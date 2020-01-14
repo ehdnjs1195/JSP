@@ -21,6 +21,40 @@ public class CafeDao {	//싱글톤
 		return dao;
 	}
 	
+	//새글을 저장하는 메소드
+	public boolean insert(CafeDto dto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int flag = 0;
+		try {
+			conn = new DbcpBean().getConn();
+			String sql = "insert into board_cafe"
+					+ " (num, writer, title, content, viewCount, regdate)"
+					+ " values(board_cafe_seq.nextval, ?, ?, ?,0,sysdate)";		//viewCount는 insert할 때 넣지 않으면 default 값으로 0이 들어간다.
+			pstmt = conn.prepareStatement(sql);
+			//?에 값 바인딩하기
+			pstmt.setString(1, dto.getWriter());
+			pstmt.setString(2, dto.getTitle());
+			pstmt.setString(3, dto.getContent());
+			flag = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		if (flag > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	//글 목록을 리턴하는 메소드   	(ctrl + shift + o : auto import)
 	public List<CafeDto> getList(){
 		List<CafeDto> list=new ArrayList<>();
