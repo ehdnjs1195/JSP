@@ -72,7 +72,7 @@
 	$("#email").on("input", function(){
 		var email=$("#email").val();
 		
-		if(email.match("@")){	//이메일 형식에 맞게 입력 했다면
+		if(email.match("^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$")){	//이메일 형식에 맞게 입력 했다면(이메일 정규식)
 			isEmailMatch=true;
 		}else{	//형식에 맞지 않게 입력했다면
 			isEmailMatch=false;
@@ -82,7 +82,10 @@
 		}else{		//이메일을 입력 했다면
 			isEmailInput=true;
 		}
-		setEmailState();
+		//이메일 에러 여부
+		var isError=isEmailInput && !isEmailMatch;
+		//이메일 상태 바꾸기
+		setState("#email", isError);
 	});
 	
 	//비밀번호를 입력할 때 실행할 함수 등록
@@ -100,7 +103,10 @@
 		}else{
 			isPwdInput=true;
 		}
-		setPwdState();
+		//비밀번호 에러 여부
+		var isError=!isPwdEqual || !isPwdInput;
+		//비밀번호 상태 바꾸기
+		setState("#pwd", isError);
 	});
 
 	//아이디를 입력할 때 실행할 함수 등록(입력할 때 마다 함수 실행.)
@@ -118,7 +124,10 @@
 				}else{
 					isIdUsable=true;
 				}
-				setIdState();
+				//아이디 에러 여부
+				var isError= !isIdUsable || !isIdInput;
+				//아이디 상태 바꾸기
+				setState("#id", isError);
 			}
 		});		//이렇게 요청을 하고도 페이지 전환 없이 응답하는 것을 ajax 통신이라 한다. (비동기 통신. 요청하고 응답이 오면 success 함수를 호출하고 끝.) =>보통 ajax 요청에 대한 응답은 xml,json 형식으로 한다.
 		//폼 전송은 막을 필요가 없다.(return false;)
@@ -129,81 +138,47 @@
 		}else{
 			isIdInput=true;
 		}
-		setIdState();
+		//아이디 에러 여부
+		var isError= !isIdUsable || !isIdInput;
+		//아이디 상태 바꾸기
+		setState("#id", isError);
 	});
 	
-	//입력란의 상태를 바꾸는 함수
+	//입력란의 상태를 바꾸는 함수(세개의 함수를 통합)
 	function setState(sel, isError){	//sel: 선택인자, isError: 에러여부검사
 		$(sel).parent().removeClass("has-success has-error").find(".help-block, .form-control-feedback").hide();
 		
-		if(isError){
-			
-		}else{
-			
+		if(isError){//입력란이 error인 상태
+			$(sel).parent().addClass("has-error").find(".glyphicon-remove").show();
+		}else{	//입력란이 success인 상태
+			$(sel).parent().addClass("has-success").find(".glyphicon-ok").show();
 		}
-	
-	}
-	
-	//이메일 입력란의 상태를 바꾸는 함수
-	function setEmailState(){
-		$("#email").parent().removeClass("has-success has-error").find(".help-block, .form-control-feedback").hide();
-		//색상과 아이콘을 바꿔주는 작업
-		if(isEmailInput && !isEmailMatch){	//이메일의 error인 상태 (이메일 작성은 선택이므로, 이메일을 썼을 때 형식이 맞는지 확인)
-			$("#email").parent().addClass("has-error").find(".glyphicon-remove").show();
-		}else{	//비밀번호 입력란이 success인 상태
-			$("#email").parent().addClass("has-success").find(".glyphicon-ok").show();
-		}
-		//에러가 있다면 에러 메세지 띄우기
+		//에러가 있다면 에러 메세지 띄우기(각각 따로 관리 되므로. 모두 표기)
 		if(isEmailInput && !isEmailMatch){
 			$("#email_notmatch").show();
 		}
-	}
-	
-	
-	//비밀번호 입력란의 상태를 바꾸는 함수
-	function setPwdState(){
-		$("#pwd").parent().removeClass("has-success has-error").find(".help-block, .form-control-feedback").hide();
-		//색상과 아이콘을 바꿔주는 작업
-		if(!isPwdEqual || !isPwdInput){	//비밀번호 입력란이 error인 상태
-			$("#pwd").parent().addClass("has-error").find(".glyphicon-remove").show();
-		}else{	//비밀번호 입력란이 success인 상태
-			$("#pwd").parent().addClass("has-success").find(".glyphicon-ok").show();
-		}
-		//에러가 있다면 에러 메세지 띄우기
 		if(!isPwdEqual){
 			$("#pwd_notequal").show();
 		}
 		if(!isPwdInput){
 			$("#pwd_required").show();
 		}
-	}
-	
-	//아이디 입력란의 상태를 바꾸는 함수
-	function setIdState(){
-		//일단 UI를 초기상태로 바꿔준다.
-		$("#id").parent().removeClass("has-success has-error").find(".help-block, .form-control-feedback").hide();
-		
-		//색상과 아이콘을 바꿔주는 작업
-		if(!isIdUsable || !isIdInput){	//아이디 입력란이 error인 상태
-			$("#id").parent().addClass("has-error").find(".glyphicon-remove").show();
-		}else{	//아이디 입력란이 success인 상태
-			$("#id").parent().addClass("has-success").find(".glyphicon-ok").show();
-		}
-		//에러가 있다면 에러 메세지 띄우기
 		if(!isIdUsable){
 			$("#id_notusable").show();
 		}
 		if(!isIdInput){
 			$("#id_required").show();
 		}
+		//버튼의 상태 바꾸기
+		if (isIdUsable && isIdInput && isPwdEqual && isPwdInput	&& (!isEmailInput || isEmailMatch)) {
+			$("button[type=submit]").removeAttr("disabled");
+		} else {
+			$("button[type=submit]").attr("disabled", "disabled");
+		}
 	}
 	
-	if(isIdUsable==false || isPwdEqual==false || isPwdInput==false || isEmailMatch==false){
-		$("#button[type=submit]").removeAttr("disabled");
-	}else{
-		$("#button[type=submit]").attr("disabled", "disabled");
-	}
 
+	
 </script>
 </body>
 </html>
