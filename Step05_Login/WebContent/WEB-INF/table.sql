@@ -22,5 +22,6 @@ from
 	from
 		(select num,writer,title	--1.줄세우고
 		from board_cafe
+		where writer LIKE '%gura%'	--키워드 검색. =>동적쿼리로 처리. (생길 수도 있고 없을 수도 있고.)
 		order by num desc) result1)
 where rnum between ? and ?;			--몇번 페이지인지
