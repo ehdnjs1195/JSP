@@ -100,6 +100,9 @@
 	</table>
 	<div class="page-display">
 		<ul>
+			<li>
+				<a href="list.jsp?pageNum=1">처음으로</a>
+			</li>
 			<%if(startPageNum != 1){ %>
 				<li>
 					<a href="list.jsp?pageNum=<%=startPageNum-1%>"><span class="glyphicon glyphicon-headphones"></span></a>
@@ -129,6 +132,9 @@
 					<a href="javascript:">&raquo;</a>
 				</li>
 			<%} %>
+			<li>
+				<a href="list.jsp?pageNum=<%=totalPageCount%>">끝으로</a>
+			</li>
 		</ul>	
 	</div>
 </div>
