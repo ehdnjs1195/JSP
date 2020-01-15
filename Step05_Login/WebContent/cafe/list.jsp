@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/list.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 <style>
 	.page-display ul li{
 		float:left;
@@ -22,6 +23,9 @@
 		text-decoration: underline;
 		color: #f00;
 		font-weight: bold;
+	}
+	.page-display ul li.muted a{
+		color: #cecece;
 	}
 </style>
 </head>
@@ -98,9 +102,13 @@
 		<ul>
 			<%if(startPageNum != 1){ %>
 				<li>
-					<a href="list.jsp?pageNum=<%=startPageNum-1%>">&laquo;</a>
+					<a href="list.jsp?pageNum=<%=startPageNum-1%>"><span class="glyphicon glyphicon-headphones"></span></a>
 				</li>
-			<%}%>
+			<%}else{%> 
+				<li class="muted">
+					<a href="javascript:">&laquo;</a>	<!-- javascript: 에 아무것도 적지 않으면 동작하지 않는 링크가 된다. -->
+				</li>
+			<%} %>
 			<%for(int i=startPageNum; i<=endPageNum; i++){ %>
 				<%if(i == pageNum){ %> <!-- 현재 페이지하고 결과가 같으면 active를 추가한다. -->
 					<li class="active">
@@ -114,7 +122,11 @@
 			<%} %>		
 			<%if(endPageNum < totalPageCount){ %>
 				<li>
-					<a href="list.jsp?pageNum=<%=endPageNum+1%>">&raquo;</a>
+					<a href="list.jsp?pageNum=<%=endPageNum+1%>"><span class="glyphicon glyphicon-sunglasses"></span></a>
+				</li>
+			<%}else{ %>
+				<li class="muted">
+					<a href="javascript:">&raquo;</a>
 				</li>
 			<%} %>
 		</ul>	
