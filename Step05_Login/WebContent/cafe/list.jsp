@@ -30,7 +30,7 @@
 	//한 페이지에 나타낼 row 의 갯수
 	final int PAGE_ROW_COUNT=5;
 	//하단 디스플레이 페이지 갯수
-	final int PAGE_DISPLAY_COUNT=10;
+	final int PAGE_DISPLAY_COUNT=5;
 	
 	//보여줄 페이지의 번호
 	int pageNum=1;
@@ -96,6 +96,11 @@
 	</table>
 	<div class="page-display">
 		<ul>
+			<%if(startPageNum != 1){ %>
+				<li>
+					<a href="list.jsp?pageNum=<%=startPageNum-1%>">&laquo;</a>
+				</li>
+			<%}%>
 			<%for(int i=startPageNum; i<=endPageNum; i++){ %>
 				<%if(i == pageNum){ %> <!-- 현재 페이지하고 결과가 같으면 active를 추가한다. -->
 					<li class="active">
@@ -107,6 +112,11 @@
 					</li>
 				<%} %>
 			<%} %>		
+			<%if(endPageNum < totalPageCount){ %>
+				<li>
+					<a href="list.jsp?pageNum=<%=endPageNum+1%>">&raquo;</a>
+				</li>
+			<%} %>
 		</ul>	
 	</div>
 </div>
