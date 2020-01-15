@@ -3,11 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	int pageNum=1;
-	String strPageNum=request.getParameter("pageNum");
-	if(strPageNum != null){
-		pageNum=Integer.parseInt(strPageNum);
-	}
+	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	//1. GET 방식 파라미터로 전달되는 글 번호를 읽어온다.
 	int num=Integer.parseInt(request.getParameter("num"));
 	//2. DB 에서 해당 글 정보를 얻어온다.
@@ -61,7 +57,7 @@
 		즉, 본인이 작성한 글만 수정할 수 있도록 하기위해(조건부로 출력)
 	 --%>
 	<%if(dto.getWriter().equals(id)){ %> 
-		<a href="private/updateform.jsp?num=<%=dto.getNum()%>">수정</a>	<!-- 경로를 private으로 보내는 이유는 로그인 되있는 상태이어야 수정이 가능하도록 하기 위해서. -->	
+		<a href="private/updateform.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>">수정</a>	<!-- 경로를 private으로 보내는 이유는 로그인 되있는 상태이어야 수정이 가능하도록 하기 위해서. -->	
 	<%} %>
 </div>
 </body>

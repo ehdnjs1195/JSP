@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	//1. 파라미터로 전달되는 수정할 글번호를 읽어온다.
 	int num=Integer.parseInt(request.getParameter("num"));
 	//2. DB 에서 글정보를 얻어온다.
@@ -20,6 +21,7 @@
 	<h1>글 수정 양식 입니다.</h1>
 	<form action="update.jsp" method="post">
 		<input type="hidden" name="num" value="<%=num %>"/>
+		<input type="hidden" name="pageNum" value="<%=pageNum %>"/>
 		<div>
 			<label for="num">글번호</label>
 			<input type="text" id="num" value="<%=num %>" disabled/>

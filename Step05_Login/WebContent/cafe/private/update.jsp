@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	//1. 폼 전송되는 수정할 글 정보를 파라미터에서 얻어온다.
 	int num=Integer.parseInt(request.getParameter("num"));
 	String title=request.getParameter("title");
@@ -26,7 +27,7 @@
 	<%if(isSuccess){ %>
 		<script>
 			alert("글을 수정했습니다.");
-			location.href="${pageContext.request.contextPath }/cafe/detail.jsp?num=<%=num%>";
+			location.href="${pageContext.request.contextPath }/cafe/detail.jsp?num=<%=num%>&pageNum=<%=pageNum%>";
 		</script>
 	<%}else{ %>
 		<h1>Alert</h1>
