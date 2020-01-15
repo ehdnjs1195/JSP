@@ -17,6 +17,13 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/detail.jsp</title>
+<style>
+	/* div */
+	.contents{
+		width: 100%;
+		border: 1px dotted #cecece;
+	}
+</style>
 </head>
 <body>
 <div class="container">
@@ -35,14 +42,11 @@
 			<td><%=dto.getTitle() %></td>
 		</tr>
 		<tr>
-			<th>내용</th>
-			<td><textarea cols="30" rows="10"><%=dto.getContent() %></textarea></td>
-		</tr>
-		<tr>
 			<th>등록일</th>
 			<td><%=dto.getRegdate() %></td>
 		</tr>
 	</table>
+	<div class="contents"><%=dto.getContent() %></div>	<!-- div로 뿌려주면 에디터로 작성한 것이 그대로 출력된다. (textarea말고) -->
 	<a href="list.jsp?pageNum=<%=pageNum %>">목록 보기</a>
 </div>
 </body>
