@@ -17,18 +17,30 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/detail.jsp</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* div */
-	.contents{
+	.contents, table{
 		width: 100%;
 		border: 1px dotted #cecece;
+		box-shadow: 1px 3px 3px 1px #ccc; /* 그림자 추가 */
 	}
 </style>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="cafe" name="category"/>
+</jsp:include>
 <div class="container">
-	<h1>글 상세 페이지</h1>
-	<table>
+	<ol class="breadcrumb">
+		<li><a href="${pageContext.request.contextPath }/cafe/list.jsp">목록</a></li>
+		<li>글 상세 보기</li>
+	</ol>
+	<table class="table table-bordered table-condensed">
+		<colgroup>
+			<col class="col-xs-4"/>
+			<col class="col-xs-8"/>
+		</colgroup>
 		<tr>
 			<th>글번호</th>
 			<td><%=dto.getNum() %></td>
@@ -47,18 +59,20 @@
 		</tr>
 	</table>
 	<div class="contents"><%=dto.getContent() %></div>	<!-- div로 뿌려주면 에디터로 작성한 것이 그대로 출력된다. (textarea말고) -->
-	<a href="list.jsp?pageNum=<%=pageNum %>">목록 보기</a>
-	<%
-		//세션 영역의 아이디를 읽어와본다. 만일 로그인 하지 않았으면 null 이다.
-		String id=(String)session.getAttribute("id");
-	%>
-	<%-- 
-		글 작성자와 로그인 된 아이디가 같을때만 기능을 제공해준다.
-		즉, 본인이 작성한 글만 수정할 수 있도록 하기위해(조건부로 출력)
-	 --%>
-	<%if(dto.getWriter().equals(id)){ %> 
-		<a href="private/updateform.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>">수정</a>	<!-- 경로를 private으로 보내는 이유는 로그인 되있는 상태이어야 수정이 가능하도록 하기 위해서. -->	
-	<%} %>
+	<div style="margin-top:10px;">
+		<a class="btn btn-primary pull-right" href="list.jsp?pageNum=<%=pageNum %>">목록 보기</a>
+		<%
+			//세션 영역의 아이디를 읽어와본다. 만일 로그인 하지 않았으면 null 이다.
+			String id=(String)session.getAttribute("id");
+		%>
+		<%-- 
+			글 작성자와 로그인 된 아이디가 같을때만 기능을 제공해준다.
+			즉, 본인이 작성한 글만 수정할 수 있도록 하기위해(조건부로 출력)
+		 --%>
+		<%if(dto.getWriter().equals(id)){ %> 
+			<a class="btn btn-primary pull-right" style="margin-right:5px;" href="private/updateform.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>">수정</a>	<!-- 경로를 private으로 보내는 이유는 로그인 되있는 상태이어야 수정이 가능하도록 하기 위해서. -->	
+		<%} %>
+	</div>
 </div>
 </body>
 </html>
