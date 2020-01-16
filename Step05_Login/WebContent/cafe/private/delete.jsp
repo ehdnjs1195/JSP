@@ -39,8 +39,8 @@
 	<%}else{ %>
 		<h1>Alert</h1>
 		<p class="alert alert-danger">
-			글 삭제 실패!
-			<a class="alert-link" href="../detail.jsp?num=<%=num%>">다시 돌아가기</a>
+			글 삭제 실패! 
+			<a class="alert-link" href="../detail.jsp?num=<%=num%>"> 다시 돌아가기</a>
 		</p>
 	<%} %>
 </div>

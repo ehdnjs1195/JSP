@@ -34,8 +34,8 @@
 	<%}else{ %>
 		<h1>Alert</h1>
 		<p class="alert alert-danger">
-			글 정보 저장 실패!
-			<a class="alert-link" href="insertform.jsp">다시 작성</a>
+			글 정보 저장 실패! 
+			<a class="alert-link" href="insertform.jsp"> 다시 작성</a>
 		</p>
 	<%} %>
 </div>

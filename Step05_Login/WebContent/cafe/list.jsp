@@ -9,6 +9,13 @@
 <meta charset="UTF-8">
 <title>/cafe/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<style>
+	#ul{
+		position:relative;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+</style>
 </head>
 <body>
 <%
@@ -92,7 +99,7 @@
 		</tbody>
 	</table>
 	<div class="page-display">
-		<ul class="pagination pagination-sm">
+		<ul class="pagination pagination-sm" id="ul">
 			<li>
 				<a href="list.jsp?pageNum=1">처음으로</a>
 			</li>
@@ -129,8 +136,8 @@
 				<a href="list.jsp?pageNum=<%=totalPageCount%>">끝으로</a>
 			</li>
 		</ul>	
+	<a class="btn btn-primary pull-right" href="private/insertform.jsp" id="a">새글 작성</a>
 	</div>
-	<a href="private/insertform.jsp">새글 작성</a>
 </div>
 </body>
 </html>
