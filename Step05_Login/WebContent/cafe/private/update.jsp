@@ -21,6 +21,7 @@
 <head>
 <meta charset="UTF-8">
 <title>cafe/private/update.jsp</title>
+<jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
 <div class="container">
@@ -31,7 +32,7 @@
 		</script>
 	<%}else{ %>
 		<h1>Alert</h1>
-		<p>글 수정 실패<a href="updateform.jsp?num=<%=num%>">다시 시도</a></p>
+		<p class="alert alert-danger">글 수정 실패<a class="alert-link" href="updateform.jsp?num=<%=num%>&pageNum=<%=pageNum%>">다시 시도</a></p>
 	<%} %>
 </div>
 </body>

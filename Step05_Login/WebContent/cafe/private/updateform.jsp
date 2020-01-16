@@ -43,7 +43,7 @@
 			<textarea class="form-control" name="content" id="content"><%=dto.getContent() %></textarea>
 		</div>
 		<button class="btn btn-primary " type="submit" onclick="submitContents(this);">수정확인</button>
-		<a class="btn btn-warning" href="javascript:history.back();">취소</a>
+		<a class="btn btn-warning" href="../detail.jsp?num=<%=num%>&pageNum=<%=pageNum%>">취소</a>
 	</form>
 </div>
 <!-- SmartEditor 에서 필요한 javascript 로딩  -->

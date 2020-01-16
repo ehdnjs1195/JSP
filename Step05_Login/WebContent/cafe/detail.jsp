@@ -70,9 +70,18 @@
 			즉, 본인이 작성한 글만 수정할 수 있도록 하기위해(조건부로 출력)
 		 --%>
 		<%if(dto.getWriter().equals(id)){ %> 
-			<a class="btn btn-primary pull-right" style="margin-right:5px;" href="private/updateform.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>">수정</a>	<!-- 경로를 private으로 보내는 이유는 로그인 되있는 상태이어야 수정이 가능하도록 하기 위해서. -->	
+			<a class="btn btn-primary" style="margin-right:5px;" href="private/updateform.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>">수정</a>	<!-- 경로를 private으로 보내는 이유는 로그인 되있는 상태이어야 수정이 가능하도록 하기 위해서. -->	
+			<a class="btn btn-warning" href="javascript:deleteConfirm();">삭제</a>
 		<%} %>
 	</div>
 </div>
+<script>
+	function deleteConfirm(){
+		var isDelete=confirm("글을 삭제 하시겠습니까?");
+		if(isDelete){
+			location.href="private/delete.jsp?num=<%=dto.getNum()%>";
+		}
+	}
+</script>
 </body>
 </html>
