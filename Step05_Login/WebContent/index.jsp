@@ -11,8 +11,12 @@
 <head>
 <meta charset="UTF-8">
 <title>index.jsp</title>
+<%-- include/resource.jsp 를 include 하기 --%>
+<jsp:include page="include/resource.jsp"></jsp:include>
 </head>
 <body>
+<%-- include/navbar.jsp를 include 하기 --%>
+<jsp:include page="include/navbar.jsp"></jsp:include>
 <div class="container">
 	<h1>인덱스 페이지 입니다.</h1>
 	<%if(id==null){%>
@@ -32,5 +36,6 @@
 		<li><a href="cafe/list.jsp">글 목록보기</a></li>
 	</ul>
 </div>
+
 </body>
 </html>
