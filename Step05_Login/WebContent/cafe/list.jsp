@@ -8,26 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/list.jsp</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
-<style>
-	.page-display ul li{
-		float:left;
-		list-style-type: none;
-		margin-right: 10px;
-	}
-	.page-display ul li a{
-		text-decoration: none;
-		color: #000;
-	}
-	.page-display ul li.active a{
-		text-decoration: underline;
-		color: #f00;
-		font-weight: bold;
-	}
-	.page-display ul li.muted a{
-		color: #cecece;
-	}
-</style>
+<jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
 <%
@@ -73,10 +54,22 @@
 	List<CafeDto> list=CafeDao.getInstance().getList(dto);	//전달된 dto에 맞는 정보만 select해 오겠다!
 	//2. 글 목록을 응답한다.
 %>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="cafe" name="category"/>
+</jsp:include>
 <div class="container">
-	<a href="private/insertform.jsp">새글 작성</a>
+	<ol class="breadcrumb">
+		<li><a href="list.jsp">목록</a></li>
+	</ol>
 	<h1>글 목록 입니다.</h1>
-	<table>
+	<table class="table table-striped table-condensed">
+		<colgroup>
+			<col class="col-xs-1"/>
+			<col class="col-xs-2"/>
+			<col class="col-xs-5"/>
+			<col class="col-xs-1"/>
+			<col class="col-xs-3"/>
+		</colgroup>
 		<thead>
 			<tr>
 				<th>글번호</th>
@@ -99,16 +92,16 @@
 		</tbody>
 	</table>
 	<div class="page-display">
-		<ul>
+		<ul class="pagination pagination-sm">
 			<li>
 				<a href="list.jsp?pageNum=1">처음으로</a>
 			</li>
 			<%if(startPageNum != 1){ %>
 				<li>
-					<a href="list.jsp?pageNum=<%=startPageNum-1%>"><span class="glyphicon glyphicon-headphones"></span></a>
+					<a href="list.jsp?pageNum=<%=startPageNum-1%>"><i class="fas fa-arrow-left"></i></a>
 				</li>
 			<%}else{%> 
-				<li class="muted">
+				<li class="disabled">
 					<a href="javascript:">&laquo;</a>	<!-- javascript: 에 아무것도 적지 않으면 동작하지 않는 링크가 된다. -->
 				</li>
 			<%} %>
@@ -125,10 +118,10 @@
 			<%} %>		
 			<%if(endPageNum < totalPageCount){ %>
 				<li>
-					<a href="list.jsp?pageNum=<%=endPageNum+1%>"><span class="glyphicon glyphicon-sunglasses"></span></a>
+					<a href="list.jsp?pageNum=<%=endPageNum+1%>"><i class="fas fa-arrow-right"></i></a>
 				</li>
 			<%}else{ %>
-				<li class="muted">
+				<li class="disabled">
 					<a href="javascript:">&raquo;</a>
 				</li>
 			<%} %>
@@ -137,6 +130,7 @@
 			</li>
 		</ul>	
 	</div>
+	<a href="private/insertform.jsp">새글 작성</a>
 </div>
 </body>
 </html>
