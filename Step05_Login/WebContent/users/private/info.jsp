@@ -14,11 +14,13 @@
 <head>
 <meta charset="UTF-8">
 <title>/users/private/info.jsp</title>	<!-- private 하위의 요청은 LoginFilter로 거르기. 로그인 안한 상태에서 url로 info.jsp 경로를 입력했을 때 로그인을 우선할 수 있도록-->
+<jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
 <div class="container">
+
 	<h1>개인정보 페이지</h1>
-	<table>
+	<table class="table table-bordered">
 		<tr>
 			<th>아이디</th>
 			<td><%=dto.getId() %></td>
@@ -36,8 +38,8 @@
 			<td><%=dto.getRegdate() %></td>
 		</tr>
 	</table>
-	<a href="updateform.jsp">개인 정보 수정하기</a>
-	<a href="javascript:deleteConfirm();">회원 탈퇴</a>
+	<a class="btn btn-primary btn-sm" href="updateform.jsp">개인 정보 수정하기</a>
+	<a class="btn btn-danger btn-sm" href="javascript:deleteConfirm();">회원 탈퇴</a>
 </div>
 <script>
 	function deleteConfirm(){

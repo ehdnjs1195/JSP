@@ -49,7 +49,7 @@
 			<span  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		</div>
 		<button disabled="disabled" class="btn btn-primary" type="submit">가입</button>
-		<button class="btn btn-warning" type="reset">취소</button>
+		<a class="btn btn-warning" href="../index.jsp">취소</a>
 	</form>
 </div>
 <script>
