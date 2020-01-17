@@ -23,8 +23,8 @@
 		<li><a href="shop/buy.jsp?num=1&name=coffe">1번 상품 구입하기</a></li>
 		<li><a href="shop/buy.jsp?num=2&name=sugar">2번 상품 구입하기</a></li>
 		<li><a href="cafe/list.jsp">글 목록보기</a></li>
+		<li><a href="file/list.jsp">파일 목록보기</a></li> <%-- 자료실만들기. --%>
 	</ul>
 </div>
-
 </body>
 </html>
