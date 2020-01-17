@@ -18,6 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/users/private/update.jsp</title>
+<jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
 <div class="container">
@@ -28,9 +29,9 @@
 		</script>
 	<%}else{ %>
 		<h1>Alert</h1>
-		<p>
+		<p class="alert alert-danger">
 			회원정보 수정 실패!
-			<a href="updateform.jsp">다시 시도 하러가기</a>
+			<a class="alert alert-link" href="updateform.jsp">다시 시도 하러가기</a>
 		</p>
 	<%} %>
 </div>

@@ -30,19 +30,20 @@
 <head>
 <meta charset="UTF-8">
 <title>/users/login.jsp</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
 <div class="container">
 	<h1>Alert</h1>
 	<%if(isValid){ %>
-		<p>
-			<strong><%=id %> 회원님 로그인 되었습니다.</strong>
-			<a href="<%=url%>">확인</a>	<!-- filter를 통해서  -->
-		</p>
+		<script>
+			alert("<%=id%> 님 반갑습니다!");
+			location.href="<%=url%>";
+		</script>
 	<%}else{ %>
-		<p>
+		<p class="alert alert-danger">
 			아이디  혹은 비밀번호가 틀려요!
-			<a href="loginform.jsp?url=<%=encodedUrl%>">로그인 재시도</a>	<!-- 틀려도 다시 로그인하러 갔을 때에도  url을 들고 가야한다. 로그인 했을 때 다시 원래 있던 페이지로 돌아가도록. -->
+			<a class="alert alert-link" href="loginform.jsp?url=<%=encodedUrl%>">로그인 재시도</a>	<!-- 틀려도 다시 로그인하러 갔을 때에도  url을 들고 가야한다. 로그인 했을 때 다시 원래 있던 페이지로 돌아가도록. -->
 		</p>
 	<%} %>
 </div>

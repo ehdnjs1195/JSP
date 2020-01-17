@@ -17,8 +17,8 @@
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
-
 	<h1>개인정보 페이지</h1>
 	<table class="table table-bordered">
 		<tr>

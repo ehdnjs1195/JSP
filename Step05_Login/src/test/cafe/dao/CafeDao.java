@@ -125,7 +125,8 @@ public class CafeDao {	//싱글톤
 		ResultSet rs = null;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "select * from board_cafe"
+			String sql = "select writer, title, content, viewCount, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate"
+					+ " from board_cafe"
 					+ " where num=?";
 			pstmt = conn.prepareStatement(sql);
 			// ? 에 값 바인딩 
@@ -236,7 +237,7 @@ public class CafeDao {	//싱글톤
 					" FROM" + 
 					" (SELECT result1.*, ROWNUM AS rnum" + 
 					" FROM" + 
-					" (SELECT num,writer,title,viewCount,regdate" + 
+					" (SELECT num,writer,title,viewCount,to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate" + 
 					" FROM board_cafe" + 
 					" ORDER BY num DESC) result1)" + 
 					" WHERE rnum BETWEEN ? AND ?";

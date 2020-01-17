@@ -72,7 +72,7 @@
 					// input type="file" 이 아닌 일반 input 요소라면 ex) text,email,password ...
 					if(item.getFieldName().equals("title")){
 						//제목 읽어오기
-						String title=item.getString("utf-8");
+						String title=item.getString("utf-8");	//인코딩 필터를 거쳐도 인코딩이 되지 않기때문에 title이 맞다면 utf-8로 인코딩해서 가져오겠다!
 						//FileDto 에 제목 담기
 						dto.setTitle(title);
 					}

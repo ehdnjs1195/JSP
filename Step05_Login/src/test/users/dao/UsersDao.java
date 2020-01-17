@@ -123,7 +123,7 @@ public class UsersDao {	//싱글톤
 		ResultSet rs = null;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "select pwd, email, regdate"
+			String sql = "select pwd, email, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate"
 					+ " from users"
 					+ " where id=?";
 			pstmt = conn.prepareStatement(sql);

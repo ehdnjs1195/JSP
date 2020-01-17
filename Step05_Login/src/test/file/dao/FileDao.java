@@ -121,7 +121,7 @@ public class FileDao {
 		ResultSet rs = null;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "select writer, title, saveFileName, orgFileName, fileSize, downCount, regdate"
+			String sql = "select writer, title, saveFileName, orgFileName, fileSize, downCount, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate"
 					+ " from board_file"
 					+ " where num=?";
 			pstmt = conn.prepareStatement(sql);
@@ -163,7 +163,7 @@ public class FileDao {
 		try {
 			conn = new DbcpBean().getConn();
 			String sql = "insert into board_file"
-					+ " (num, writer, title, orgFileName, saveFileName, fileSize, regdate)"
+					+ " (num, writer, title, orgFileName, saveFileName, fileSize, regdate"
 					+ " values(board_file_seq.nextval, ?, ?, ?, ?, ?, sysdate)";
 			pstmt = conn.prepareStatement(sql);
 			//?에 값 바인딩하기
@@ -201,7 +201,7 @@ public class FileDao {
 			conn = new DbcpBean().getConn();
 			String sql = "select * from"
 					+ " (select result1.*, rownum as rnum from "
-					+ " (select num,writer,title,orgFileName,fileSize,downCount,regdate"
+					+ " (select num,writer,title,orgFileName,fileSize,downCount,to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate"
 					+ " from board_file"
 					+ " order by num desc) result1)"
 					+ " where rnum between ? and ?";
