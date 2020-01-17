@@ -18,6 +18,39 @@ public class FileDao {
 		}
 		return dao;
 	}
+	//글 전체의 갯수를 리턴하는 메소드
+		public int getCount() {
+			int rowCount=0;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				conn = new DbcpBean().getConn();
+				String sql = "select MAX(ROWNUM) as count"	//rownum중에 가장 큰것.(글의 개수)
+						+ " from board_file";
+				pstmt = conn.prepareStatement(sql);
+				// ? 에 값 바인딩 
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					rowCount=rs.getInt("count");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					//connection pool 에 반납하기 
+					if (conn != null)
+						conn.close();
+				} catch (Exception e) {
+				}
+			}
+			return rowCount;
+		}
+	
 	//파일 정보를 삭제하는 메소드
 	public boolean delete(int num) {
 		Connection conn = null;
@@ -159,28 +192,33 @@ public class FileDao {
 	}
 	
 	//파일 목록을 리턴하는 메소드
-	public List<FileDto> getList(){
+	public List<FileDto> getList(FileDto dto){
 		List<FileDto> list=new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "select num,writer,title,orgFileName,fileSize,downCount,regdate"
+			String sql = "select * from"
+					+ " (select result1.*, rownum as rnum from "
+					+ " (select num,writer,title,orgFileName,fileSize,downCount,regdate"
 					+ " from board_file"
-					+ " order by num desc";
+					+ " order by num desc) result1)"
+					+ " where rnum between ? and ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getStartRowNum());
+			pstmt.setInt(2, dto.getEndRowNum());
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				FileDto dto=new FileDto();
-				dto.setNum(rs.getInt("num"));
-				dto.setWriter(rs.getString("writer"));
-				dto.setTitle(rs.getString("title"));
-				dto.setOrgFileName(rs.getString("orgFileName"));
-				dto.setFileSize(rs.getLong("fileSize"));
-				dto.setDownCount(rs.getInt("downCount"));
-				dto.setRegdate(rs.getString("regdate"));
-				list.add(dto);
+				FileDto tmp=new FileDto();
+				tmp.setNum(rs.getInt("num"));
+				tmp.setWriter(rs.getString("writer"));
+				tmp.setTitle(rs.getString("title"));
+				tmp.setOrgFileName(rs.getString("orgFileName"));
+				tmp.setFileSize(rs.getLong("fileSize"));
+				tmp.setDownCount(rs.getInt("downCount"));
+				tmp.setRegdate(rs.getString("regdate"));
+				list.add(tmp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
