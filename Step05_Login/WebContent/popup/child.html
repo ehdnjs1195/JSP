@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/popup/child.html</title>
+</head>
+<body>
+<h3>팝업된 페이지 입니다.</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam saepe dolor nihil aperiam ducimus vel fuga. Repudiandae labore inventore odio eius id totam nulla quasi quidem quo nihil impedit dicta.</p>
+<input type="text" id="inputAddr" />
+<a href="javascript:self.close()">닫기</a>		<!-- 현재 창 닫기. -->
+<script>
+	document.querySelector("#inputAddr").addEventListener("input", function(){
+		window.opener.document.querySelector("#addr").value=this.value;	
+	});
+</script>
+</body>
+</html>
+
+<!-- 
+	window.opener 는 부모창을 가르킨다.
+	
+	ex)	document.xxx 해서 사용하면 해당 그 창의 document를 접근하는 것이고,
+		window.opener.document.xxx 를 사용하면 부모창의 document에 접근하게 되는것이다.
+	
+		window.opener.document.querySelector("#addr").value="오잉?" => 부모창의 input 값을 변경
+		window.opener.gura() =>gura() 함수 호출.
+ -->

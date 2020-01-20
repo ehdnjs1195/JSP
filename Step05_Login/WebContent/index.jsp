@@ -26,6 +26,8 @@
 		<li><a href="file/list.jsp">파일 목록보기</a></li> <%-- 자료실만들기. --%>
 		<li><a href="cook/test1.jsp">쿠키 테스트</a></li>
 		<li><a href="cook/test2.jsp">쿠키테스트2</a></li>
+		<li><a href="popup/parent.html">팝업 테스트</a></li>
+		<li><a href="popup/main.jsp">팝업 테스트2</a></li>	<%-- 쿠키 관련된 작업을 해야하기 때문에 jsp로 만듬 --%>
 	</ul>
 </div>
 </body>
