@@ -82,7 +82,11 @@ a{
 a:hover{
 	background: #2ecc71;
 }
-
+label{
+	color:gray;
+	font-size: 13px;
+	margin: 5px, 0;
+}
 </style>
 </head>
 <body>
@@ -93,12 +97,28 @@ a:hover{
 		//로그인 성공후에 index.jsp 페이지로 보낼 수 있도록 구성한다.
 		url=request.getContextPath()+"/index.jsp";
 	}
+	
+	//아이디, 비밀번호가 쿠키에 저장되었는지 확인해서 저장되었으면 폼에 출력한다.
+	Cookie[] cookies=request.getCookies();
+	//저장된 아이디와 비밀번호를 담을 변수 선언하고 초기값으로 빈 문자열 대입
+	String savedId="";
+	String savedPwd="";
+	if(cookies != null){
+		for(Cookie tmp:cookies){
+			if(tmp.getName().equals("savedId")){
+				savedId=tmp.getValue();
+			}else if(tmp.getName().equals("savedPwd")){
+				savedPwd=tmp.getValue();
+			}
+		}
+	}
 %>
 <form class="box" action="login.jsp" method="post">
 	<h1>Login</h1>
 		<input type="hidden" name="url" value="<%=url %>" />
-		<input type="text" name="id" placeholder="Username"/>
-		<input type="password" name="pwd" placeholder="Password"/>
+		<input type="text" name="id" placeholder="Username" value="<%=savedId%>"/>
+		<input type="password" name="pwd" placeholder="Password" value="<%=savedPwd%>"/>
+		<label><input type="checkbox" name="isSave" id="yes" /> Save ID, Password</label>
 		<input type="submit" name="" value="Login"/>
 </form>
 </body>
