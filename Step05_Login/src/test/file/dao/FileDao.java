@@ -163,7 +163,7 @@ public class FileDao {
 		try {
 			conn = new DbcpBean().getConn();
 			String sql = "insert into board_file"
-					+ " (num, writer, title, orgFileName, saveFileName, fileSize, regdate"
+					+ " (num, writer, title, orgFileName, saveFileName, fileSize, regdate)"
 					+ " values(board_file_seq.nextval, ?, ?, ?, ?, ?, sysdate)";
 			pstmt = conn.prepareStatement(sql);
 			//?에 값 바인딩하기
