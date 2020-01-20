@@ -18,6 +18,39 @@ public class UsersDao {	//싱글톤
 		}
 		return dao;
 	}
+	//프로필 이미지를 업데이트 정보를 업데이트 하는 메소드
+	public boolean updateProfile(UsersDto dto) {	//업데이트할 id와 profile의 경로
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int flag = 0;
+		try {
+			conn = new DbcpBean().getConn();
+			String sql = "update users"
+					+ " set profile=?"
+					+ " where id=?";
+			pstmt = conn.prepareStatement(sql);
+			//?에 값 바인딩하기
+			pstmt.setString(1, dto.getProfile());
+			pstmt.setString(2, dto.getId());
+			flag = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		if (flag > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	//회원가입 정보를 삭제하는 메소드
 	public boolean delete(String id) {
 		Connection conn = null;

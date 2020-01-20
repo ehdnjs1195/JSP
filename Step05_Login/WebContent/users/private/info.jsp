@@ -41,7 +41,7 @@
 			<td>
 				<a href="javascript:" id="profileLink">
 					<%if(dto.getProfile()==null){ %> <!-- 프로필 이미지가 등록이 되어있지 않은경우 -->
-						<img src="${pageContext.request.contextPath }/resources/images/111.jpeg" alt="" />
+						<img src="${pageContext.request.contextPath }/resources/images/default_user.jpeg" alt="" />
 					<%}else{ %>	<!-- 저장된게 있으면 -->
 						<img src="${pageContext.request.contextPath }<%=dto.getProfile() %>" alt="" />	<!-- 경로를 출력. upload폴더에 저장을 해두고. /upload/14245152xx.jpg -->
 					<%} %>
@@ -68,9 +68,28 @@
 	<label for="profile">프로필 이미지 선택</label>
 	<input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG" />	<%-- 확장자를 정해준 것만 보이도록 한다. --%>
 </form>
+<%-- jquery form 플러그인 javascript 로딩 --%>
+<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>
+	//프로파일 이미지를 클릭하면
 	$("#profileLink").click(function(){
-		$("#profileImage").click();		//profileLink를 눌렀을때 profileImage가 클릭되도록 하고 profileForm은 숨겨준다.
+		//강제로 <input type="file" /> 을 클릭해서 파일 선택창을 띄우고
+		$("#profileImage").click();		//나머지 폼은 css로 숨김.
+	});
+	//input type="file" 에 파일이 선택되면 
+	$("#profileImage").on("change", function(){
+		//폼을 강제 제출하고(submit 버튼이 없어도 제출이 되고, 페이지 전환이 없다.)
+		$("#profileForm").submit();
+	})
+	// jquery form 플러그인의 동작을 이용해서 폼이 ajax로 제출되로록 한다.(페이지 전환없이 비동기로 제출하겠다는 뜻)... (ajax는 원래 없기 때문에 js를 따로 플러그인 해주고 사용하는 함수)
+	$("#profileForm").ajaxForm(function(responseData){
+		//responseData 는 plain object 이다.
+		//{savePath:"/upload/저장된이미지파일명"}
+		//savedPath 라는 방에 저장된 이미지의 경로가 들어있다.
+		console.log(responseData);	//ajax요청에 대한 응답이 들어온다.
+		var src="${pageContext.request.contextPath }"+responseData.savedPath;
+		//img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
+		$("#profileLink img").attr("src", src);
 	});
 	
 	function deleteConfirm(){
