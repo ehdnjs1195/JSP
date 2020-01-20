@@ -79,17 +79,17 @@
 	//input type="file" 에 파일이 선택되면 
 	$("#profileImage").on("change", function(){
 		//폼을 강제 제출하고(submit 버튼이 없어도 제출이 되고, 페이지 전환이 없다.)
-		$("#profileForm").submit();
+		$("#profileForm").submit();								//submit 이벤트를 발생시키는 것!
 	})
 	// jquery form 플러그인의 동작을 이용해서 폼이 ajax로 제출되로록 한다.(페이지 전환없이 비동기로 제출하겠다는 뜻)... (ajax는 원래 없기 때문에 js를 따로 플러그인 해주고 사용하는 함수)
-	$("#profileForm").ajaxForm(function(responseData){
-		//responseData 는 plain object 이다.
+	$("#profileForm").ajaxForm(function(responseData){			//ajaxForm플러그인이 개입해서 제출 이벤트를 막고 페이지 전환을 막는다. 
+		//responseData 는 plain object 이다.(json형태)
 		//{savePath:"/upload/저장된이미지파일명"}
 		//savedPath 라는 방에 저장된 이미지의 경로가 들어있다.
 		console.log(responseData);	//ajax요청에 대한 응답이 들어온다.
 		var src="${pageContext.request.contextPath }"+responseData.savedPath;
 		//img 의 src 속성에 반영함으로써 이미지가 업데이트 되도록 한다.
-		$("#profileLink img").attr("src", src);
+		$("#profileLink img").attr("src", src);		//이미지는 서버에 다시 요청해서 실시간으로 바뀌는 모습을 볼 수 있다.
 	});
 	
 	function deleteConfirm(){
