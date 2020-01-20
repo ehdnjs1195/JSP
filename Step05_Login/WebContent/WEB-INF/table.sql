@@ -38,3 +38,5 @@ regdate date
 );
 
 create sequence board_file_seq;
+
+alter table users add(profile varchar2(50));	--프로필 이미지 경로를 넣을 예정

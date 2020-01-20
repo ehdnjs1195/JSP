@@ -123,7 +123,7 @@ public class UsersDao {	//싱글톤
 		ResultSet rs = null;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "select pwd, email, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate"
+			String sql = "select pwd, email, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate, profile"
 					+ " from users"
 					+ " where id=?";
 			pstmt = conn.prepareStatement(sql);
@@ -136,6 +136,7 @@ public class UsersDao {	//싱글톤
 				dto.setPwd(rs.getString("pwd"));
 				dto.setEmail(rs.getString("email"));
 				dto.setRegdate(rs.getString("regdate"));
+				dto.setProfile(rs.getString("profile"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

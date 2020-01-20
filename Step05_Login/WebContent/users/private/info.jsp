@@ -15,6 +15,17 @@
 <meta charset="UTF-8">
 <title>/users/private/info.jsp</title>	<!-- private 하위의 요청은 LoginFilter로 거르기. 로그인 안한 상태에서 url로 info.jsp 경로를 입력했을 때 로그인을 우선할 수 있도록-->
 <jsp:include page="../../include/resource.jsp"></jsp:include>
+<style>
+	/* 프로필 이미지가 가로 세로 50px 인 원형으로 표시될 수 있도록*/
+	#profileLink img{
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;	
+	}
+	#profileForm{
+		display: none;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
@@ -24,6 +35,18 @@
 		<tr>
 			<th>아이디</th>
 			<td><%=dto.getId() %></td>
+		</tr>
+		<tr>
+			<th>프로필 이미지</th>
+			<td>
+				<a href="javascript:" id="profileLink">
+					<%if(dto.getProfile()==null){ %> <!-- 프로필 이미지가 등록이 되어있지 않은경우 -->
+						<img src="${pageContext.request.contextPath }/resources/images/111.jpeg" alt="" />
+					<%}else{ %>	<!-- 저장된게 있으면 -->
+						<img src="${pageContext.request.contextPath }<%=dto.getProfile() %>" alt="" />	<!-- 경로를 출력. upload폴더에 저장을 해두고. /upload/14245152xx.jpg -->
+					<%} %>
+				</a>
+			</td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
@@ -41,7 +64,15 @@
 	<a class="btn btn-primary btn-sm" href="updateform.jsp">개인 정보 수정하기</a>
 	<a class="btn btn-danger btn-sm" href="javascript:deleteConfirm();">회원 탈퇴</a>
 </div>
+<form action="profile_upload.jsp" method="post" enctype="multipart/form-data" id="profileForm">
+	<label for="profile">프로필 이미지 선택</label>
+	<input type="file" name="profileImage" id="profileImage" accept=".jpg, .jpeg, .png, .JPG, .JPEG" />	<%-- 확장자를 정해준 것만 보이도록 한다. --%>
+</form>
 <script>
+	$("#profileLink").click(function(){
+		$("#profileImage").click();		//profileLink를 눌렀을때 profileImage가 클릭되도록 하고 profileForm은 숨겨준다.
+	});
+	
 	function deleteConfirm(){
 		var isDelete=confirm("<%=id%> 님 탈퇴 하시겠습니까?");
 		if(isDelete){

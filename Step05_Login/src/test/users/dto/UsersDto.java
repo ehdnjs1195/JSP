@@ -5,17 +5,8 @@ public class UsersDto {
 	private String pwd;
 	private String email;
 	private String regdate;
+	private String profile; //프로필 이미지 경로를 저장할 필드
 	
-	public UsersDto() {}
-
-	public UsersDto(String id, String pwd, String email, String regdate) {
-		super();
-		this.id = id;
-		this.pwd = pwd;
-		this.email = email;
-		this.regdate = regdate;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -47,5 +38,25 @@ public class UsersDto {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	public UsersDto(String id, String pwd, String email, String regdate, String profile) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
+		this.email = email;
+		this.regdate = regdate;
+		this.profile = profile;
+	}
+
+	public UsersDto() {}
+
 	
 }
