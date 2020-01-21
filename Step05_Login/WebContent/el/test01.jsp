@@ -13,7 +13,7 @@
 	String myName=(String)request.getAttribute("myName");
 %>
 <p> myName : <strong><%=myName %></strong></p>
-<%-- 위의 코드는 아래의 EL 로 대체할 수 있다. --%>
+<%-- 위의 코드는 아래의 EL 로 대체할 수 있다. 심지어 requestScope. 는 생략도 가능하다. --%>
 <p> myName : <strong>${requestScope.myName }</strong></p>
 </body>
 </html>
