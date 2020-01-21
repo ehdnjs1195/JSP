@@ -40,3 +40,14 @@ regdate date
 create sequence board_file_seq;
 
 alter table users add(profile varchar2(50));	--프로필 이미지 경로를 넣을 예정
+
+
+create table board_cafe_comment(
+num number primary key,
+writer varchar2(50) not null,
+content clob,
+regdate date,
+ip varchar2(50)
+);
+
+create sequence board_cafe_comment_seq;

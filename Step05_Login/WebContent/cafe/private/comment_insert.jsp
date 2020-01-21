@@ -1,0 +1,29 @@
+<%@page import="test.cafe.comment.dto.CommentDto"%>
+<%@page import="test.cafe.comment.dao.CommentDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
+<%
+	String writer=request.getParameter("writer");
+	String content=request.getParameter("content");
+	String ip=request.getParameter("ip");
+	CommentDto dto=new CommentDto();
+	dto.setWriter(writer);
+	dto.setContent(content);
+	dto.setIp(ip);
+	CommentDao.getInstance().insert(dto);
+	
+	int num=Integer.parseInt(request.getParameter("num"));
+	request.setAttribute("num", num);
+	response.sendRedirect("/${pageContext.request.contextPath }/cafe/detail.jsp?num=${num}");
+%>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>comment_insert.jsp</title>
+</head>
+<body>
+
+</body>
+</html>

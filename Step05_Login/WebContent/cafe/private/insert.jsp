@@ -2,6 +2,7 @@
 <%@page import="test.cafe.dto.CafeDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>    
 <%
 	//1. 폼 전송되는 파라미터 읽어오기(글제목, 내용)
 	String title=request.getParameter("title");
@@ -16,6 +17,11 @@
 	//2. DB에 글 정보를 저장하고
 	boolean isSuccess=CafeDao.getInstance().insert(dto);
 	//3. 응답하기
+	
+	request.setAttribute("title", title);
+	request.setAttribute("content", content);
+	request.setAttribute("dto", dto);
+	request.setAttribute("isSuccess", isSuccess);
 %>    
 <!DOCTYPE html>
 <html>
@@ -26,18 +32,21 @@
 </head>
 <body>
 <div class="container">
-	<%if(isSuccess){%>
-		<script>
-			alert("저장 하였습니다.");
-			location.href="../list.jsp";
-		</script>
-	<%}else{ %>
-		<h1>Alert</h1>
-		<p class="alert alert-danger">
-			글 정보 저장 실패! 
-			<a class="alert-link" href="insertform.jsp"> 다시 작성</a>
-		</p>
-	<%} %>
+	<c:choose>
+		<c:when test="${isSuccess }">
+			<script>
+				alert("저장 하였습니다.");
+				location.href="../list.jsp";
+			</script>
+		</c:when>
+		<c:otherwise>
+			<h1>Alert</h1>
+			<p class="alert alert-danger">
+				글 정보 저장 실패! 
+				<a class="alert-link" href="insertform.jsp"> 다시 작성</a>
+			</p>
+		</c:otherwise>
+	</c:choose>
 </div>
 </body>
 </html>

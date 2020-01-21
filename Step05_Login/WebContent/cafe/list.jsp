@@ -99,7 +99,7 @@
 				<tr>
 					<td>${tmp.num }</td>
 					<td>${tmp.writer }</td>
-					<td><a href="detail.jsp?num=${tmp.num }&pageNum=${param.pageNum }">${tmp.title }</a></td>
+					<td><a href="detail.jsp?num=${tmp.num }&pageNum=${pageNum }">${tmp.title }</a></td>
 					<td>${tmp.viewCount }</td>
 					<td>${tmp.regdate }</td>
 				</tr>			

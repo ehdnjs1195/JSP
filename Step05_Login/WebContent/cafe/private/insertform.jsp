@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,10 +17,7 @@
 </style>
 </head>
 <body>
-<%
-	//로그인 된 회원의 아이디 읽어오기
-	String id=(String)session.getAttribute("id");
-%>
+
 <jsp:include page="../../include/navbar.jsp">
 	<jsp:param value="cafe" name="category"/>
 </jsp:include>
@@ -32,7 +30,7 @@
 	<form action="insert.jsp" method="post">
 		<div class="form-group">
 			<label for="writer">작성자</label>
-			<input class="form-control" type="text" value="<%=id %>" disabled />
+			<input class="form-control" type="text" value="${id }" disabled />
 		</div>
 		<div class="form-group">
 			<label for="title">제목</label>

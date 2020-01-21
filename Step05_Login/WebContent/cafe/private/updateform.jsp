@@ -2,6 +2,7 @@
 <%@page import="test.cafe.dto.CafeDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>    
 <%
 	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	//1. 파라미터로 전달되는 수정할 글번호를 읽어온다.
@@ -9,6 +10,10 @@
 	//2. DB 에서 글정보를 얻어온다.
 	CafeDto dto=CafeDao.getInstance().getData(num);
 	//3. 글 수정 폼을 응답한다.
+	
+	request.setAttribute("pageNum", pageNum);
+	request.setAttribute("num", num);
+	request.setAttribute("dto", dto);
 %>    
 <!DOCTYPE html>
 <html>
@@ -28,22 +33,22 @@
 	</jsp:include>
 
 	<form action="update.jsp" method="post">
-		<input type="hidden" name="num" value="<%=num %>"/>
-		<input type="hidden" name="pageNum" value="<%=pageNum %>"/>
+		<input type="hidden" name="num" value="${num }"/>
+		<input type="hidden" name="pageNum" value="${pageNum }"/>
 		<div class="form-group">
 			<label for="num">글번호</label>
-			<input class="form-control" type="text" id="num" value="<%=num %>" disabled/>
+			<input class="form-control" type="text" id="num" value="${num }" disabled/>
 		</div>
 		<div class="form-group">
 			<label for="title">제목</label>
-			<input class="form-control" type="text" id="title" name="title" value="<%=dto.getTitle() %>"/>
+			<input class="form-control" type="text" id="title" name="title" value="${dto.title }"/>
 		</div>
 		<div class="form-group">
 			<label for="content">내용</label>
-			<textarea class="form-control" name="content" id="content"><%=dto.getContent() %></textarea>
+			<textarea class="form-control" name="content" id="content">${dto.content }</textarea>
 		</div>
 		<button class="btn btn-primary " type="submit" onclick="submitContents(this);">수정확인</button>
-		<a class="btn btn-warning" href="../detail.jsp?num=<%=num%>&pageNum=<%=pageNum%>">취소</a>
+		<a class="btn btn-warning" href="../detail.jsp?num=${num }&pageNum=${pageNum }">취소</a>
 	</form>
 </div>
 <!-- SmartEditor 에서 필요한 javascript 로딩  -->
