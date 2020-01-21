@@ -47,7 +47,8 @@ num number primary key,
 writer varchar2(50) not null,
 content clob,
 regdate date,
-ip varchar2(50)
+ip varchar2(50),
+writeNum number
 );
 
 create sequence board_cafe_comment_seq;

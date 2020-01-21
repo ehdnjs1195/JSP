@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 <%
+	int writeNum=Integer.parseInt(request.getParameter("writeNum"));
 	String writer=request.getParameter("writer");
 	String content=request.getParameter("content");
 	String ip=request.getParameter("ip");
@@ -11,11 +12,14 @@
 	dto.setWriter(writer);
 	dto.setContent(content);
 	dto.setIp(ip);
+	dto.setWriteNum(writeNum);
 	CommentDao.getInstance().insert(dto);
 	
 	int num=Integer.parseInt(request.getParameter("num"));
 	request.setAttribute("num", num);
-	response.sendRedirect("/${pageContext.request.contextPath }/cafe/detail.jsp?num=${num}");
+	
+	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
+	request.setAttribute("pageNum", pageNum);
 %>    
 <!DOCTYPE html>
 <html>
@@ -24,6 +28,8 @@
 <title>comment_insert.jsp</title>
 </head>
 <body>
-
+<script>
+	location.href="${pageContext.request.contextPath}/cafe/detail.jsp?num=${num}&pageNum=${pageNum}"
+</script>
 </body>
 </html>

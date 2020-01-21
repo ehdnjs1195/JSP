@@ -16,7 +16,7 @@
 	CafeDao.getInstance().addViewCount(num);
 	//4. 글 정보를 등답한다.
 	
-	
+	request.setAttribute("pageNum", pageNum);
 	request.setAttribute("dto", dto);
 	request.setAttribute("num", num);
 	request.setAttribute("pageNum", pageNum);
@@ -25,7 +25,10 @@
 	System.out.println("클라이언트 IP 주소: "+ip);
 	request.setAttribute("ip", ip);
 	
-	List<CommentDto> list=CommentDao.getInstance().getList();
+	CommentDto cto=new CommentDto();
+	cto.setWriteNum(dto.getNum());
+	List<CommentDto> list=CommentDao.getInstance().getList(cto);
+	request.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
@@ -39,6 +42,9 @@
 		width: 100%;
 		border: 1px dotted #cecece;
 		box-shadow: 1px 3px 3px 1px #ccc; /* 그림자 추가 */
+	}
+	#comment_table{
+		margin-top:15px;
 	}
 </style>
 </head>
@@ -90,34 +96,38 @@
 		<table class="table table-bordered table-condensed">
 			<colgroup>
 				<col class="col-xs-1"/>
-				<col class="col-xs-2"/>
-				<col class="col-xs-7"/>
+				<col class="col-xs-1"/>
+				<col class="col-xs-8"/>
 				<col class="col-xs-2"/>
 			</colgroup>
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>작성자</th>
-					<th>댓글</th>
-					<th>작성일</th>
+					<th style="text-align:center;">번호</th>
+					<th style="text-align:center;">작성자</th>
+					<th style="text-align:center;">댓글</th>
+					<th style="text-align:center;">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="tmp" items="${list }">
-					<tr>
-						<td>${tmp.num }</td>
-						<td>${tmp.writer }</td>
-						<td>${tmp.content }</td>
-						<td>${tmp.regdate }</td>
-					</tr>				
+				<c:forEach var="tmp" items="${list }" varStatus="status">
+					<c:if test="${tmp.writeNum eq num }">
+						<tr>
+							<td>${tmp.rnum }</td>
+							<td>${tmp.writer }</td>
+							<td>${tmp.content }</td>
+							<td style="font-size: 7px;">${tmp.regdate }</td>
+						</tr>				
+					</c:if>
 				</c:forEach>
 			</tbody>
 		</table>
 		<form action="${pageContext.request.contextPath }/cafe/private/comment_insert.jsp">
-			<input type="hidden" name="writer" value="${dto.writer }" />
+			<input type="hidden" name="writeNum" value="${dto.num }" />
+			<input type="hidden" name="writer" value="${id }" />
 			<input type="hidden" name="ip" value="${ip }" />
 			<input type="hidden" name="num" value="${num }" />
-			<textarea name="comment" id="comment" cols="70" rows="1" placeholder="댓글입력.."></textarea>
+			<input type="hidden" name="pageNum" value="${pageNum }" />
+			<textarea name="content" id="content" cols="90" rows="2" placeholder="댓글입력.."></textarea>
 			<button type="submit">등록</button>
 		</form>
 	</div>

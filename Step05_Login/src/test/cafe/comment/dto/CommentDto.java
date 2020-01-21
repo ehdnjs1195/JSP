@@ -6,14 +6,18 @@ public class CommentDto {
 	private String content;
 	private String regdate;
 	private String ip;
+	private int writeNum;
+	private int rnum;
 	public CommentDto() {}
-	public CommentDto(int num, String writer, String content, String regdate, String ip) {
+	public CommentDto(int num, String writer, String content, String regdate, String ip, int writeNum, int rnum) {
 		super();
 		this.num = num;
 		this.writer = writer;
 		this.content = content;
 		this.regdate = regdate;
 		this.ip = ip;
+		this.writeNum = writeNum;
+		this.rnum = rnum;
 	}
 	public int getNum() {
 		return num;
@@ -45,5 +49,18 @@ public class CommentDto {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+	public int getWriteNum() {
+		return writeNum;
+	}
+	public void setWriteNum(int writeNum) {
+		this.writeNum = writeNum;
+	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+	
 	
 }
