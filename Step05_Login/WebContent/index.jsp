@@ -28,8 +28,10 @@
 		<li><a href="cook/test2.jsp">쿠키테스트2</a></li>
 		<li><a href="popup/parent.html">팝업 테스트</a></li>
 		<li><a href="popup/main.jsp">팝업 테스트2</a></li>	<%-- 쿠키 관련된 작업을 해야하기 때문에 jsp로 만듬 --%>
-		<li><a href="el01">El 테스트</a></li>
-		<li><a href="el02">El02 테스트</a></li>
+		<li><a href="el01">EL 테스트</a></li>
+		<li><a href="el02">EL 테스트2</a></li>
+		<li><a href="el03">EL 테스트3</a></li>
+		<li><a href="el/test04.jsp">EL 테스트4</a></li>
 	</ul>
 </div>
 </body>
