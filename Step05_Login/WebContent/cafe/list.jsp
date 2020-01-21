@@ -3,6 +3,7 @@
 <%@page import="test.cafe.dao.CafeDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,6 +61,13 @@
 	//1. DB에서 글 목록을 얻어온다.
 	List<CafeDto> list=CafeDao.getInstance().getList(dto);	//전달된 dto에 맞는 정보만 select해 오겠다!
 	//2. 글 목록을 응답한다.
+	
+	//EL, JSTL 을 활용하기 위해 필요한 모델을 request 에 담는다.
+	request.setAttribute("list", list);
+	request.setAttribute("startPageNum", startPageNum);
+	request.setAttribute("endPageNum", endPageNum);
+	request.setAttribute("pageNum", pageNum);
+	request.setAttribute("totalPageCount", totalPageCount);
 %>
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="cafe" name="category"/>
@@ -87,15 +95,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%for(CafeDto tmp:list){ %>
+			<c:forEach var="tmp" items="${list }">
 				<tr>
-					<td><%=tmp.getNum() %></td>
-					<td><%=tmp.getWriter() %></td>
-					<td><a href="detail.jsp?num=<%=tmp.getNum() %>&pageNum=<%=pageNum %>"><%=tmp.getTitle() %></a></td>
-					<td><%=tmp.getViewCount()  %></td>
-					<td><%=tmp.getRegdate() %></td>
-				</tr>
-			<%}%>
+					<td>${tmp.num }</td>
+					<td>${tmp.writer }</td>
+					<td><a href="detail.jsp?num=${tmp.num }&pageNum=${param.pageNum }">${tmp.title }</a></td>
+					<td>${tmp.viewCount }</td>
+					<td>${tmp.regdate }</td>
+				</tr>			
+			</c:forEach>
 		</tbody>
 	</table>
 	<div class="page-display">
@@ -103,37 +111,49 @@
 			<li>
 				<a href="list.jsp?pageNum=1">처음으로</a>
 			</li>
-			<%if(startPageNum != 1){ %>
-				<li>
-					<a href="list.jsp?pageNum=<%=startPageNum-1%>"><i class="fas fa-arrow-left"></i></a>
-				</li>
-			<%}else{%> 
-				<li class="disabled">
-					<a href="javascript:">&laquo;</a>	<!-- javascript: 에 아무것도 적지 않으면 동작하지 않는 링크가 된다. -->
-				</li>
-			<%} %>
-			<%for(int i=startPageNum; i<=endPageNum; i++){ %>
-				<%if(i == pageNum){ %> <!-- 현재 페이지하고 결과가 같으면 active를 추가한다. -->
-					<li class="active">
-						<a href="list.jsp?pageNum=<%=i%>"><%=i %></a>
-					</li>				
-				<%}else{ %>
+			
+			<c:choose>
+				<c:when test="${startPageNum ne 1 }">
 					<li>
-						<a href="list.jsp?pageNum=<%=i%>"><%=i %></a>
+						<a href="list.jsp?pageNum=${startPageNum -1 }"><i class="fas fa-arrow-left"></i></a>
 					</li>
-				<%} %>
-			<%} %>		
-			<%if(endPageNum < totalPageCount){ %>
-				<li>
-					<a href="list.jsp?pageNum=<%=endPageNum+1%>"><i class="fas fa-arrow-right"></i></a>
-				</li>
-			<%}else{ %>
-				<li class="disabled">
-					<a href="javascript:">&raquo;</a>
-				</li>
-			<%} %>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled">
+						<a href="javascript:">&laquo;</a>	<!-- javascript: 에 아무것도 적지 않으면 동작하지 않는 링크가 된다. -->
+					</li>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">		<%-- for(int i=startPageNum; i<=endPageNum; i++) 과 같은것 --%>
+				<c:choose>
+					<c:when test="${i eq pageNum }">
+						<li class="active">
+							<a href="list.jsp?pageNum=${i }">${i }</a>
+						</li>			
+					</c:when>
+					<c:otherwise>
+						<li>
+							<a href="list.jsp?pageNum=${i }">${i }</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${endPageNum lt totalPageCount }">
+					<li>
+						<a href="list.jsp?pageNum=${endPageNum + 1 }"><i class="fas fa-arrow-right"></i></a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="disabled">
+						<a href="javascript:">&raquo;</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
 			<li>
-				<a href="list.jsp?pageNum=<%=totalPageCount%>">끝으로</a>
+				<a href="list.jsp?pageNum=${totalPageCount }">끝으로</a>
 			</li>
 		</ul>	
 	<a class="btn btn-primary pull-right" href="private/insertform.jsp" id="a">새글 작성</a>
