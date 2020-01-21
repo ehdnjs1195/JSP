@@ -27,19 +27,19 @@
 	// sets temporary location to store files
 	factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 	ServletFileUpload upload = new ServletFileUpload(factory);
-	// sets maximum size of upload file
+	// sets maximum size of upload file (업로드 되는 파일의 크기만)
 	upload.setFileSizeMax(MAX_FILE_SIZE);
-	// sets maximum size of request (include file + form data)
+	// sets maximum size of request (include file + form data)	(업로드 되는 파일의 크기와 form에서 넘어오는 data까지. ex) String이라던지 등..)
 	upload.setSizeMax(MAX_REQUEST_SIZE);
 	
 	//업로드된 파일을 저장할 절대 경로(서버의 파일시스템에서의) 얻어오기
-	String uploadPath=application.getRealPath("/upload");	//  WebContent/upload 업로드 폴더는 WebContent에 있다!
+	String uploadPath=application.getRealPath("/upload");	//  WebContent/upload 업로드 폴더는 WebContent에 있다! 		=>파일시스템 상에서의 경로
 	System.out.println("파일이 저장될 경로: " +uploadPath);
 	//전송된 파라미터의 한글 인코딩 설정
 	upload.setHeaderEncoding("utf-8");
 	
 	//업로드된 경로를 저장할 지역변수
-	String savedPath=null;
+	String savedPath=null;		//=>클라이언트가 요청하는 경로. /Step_Login/upload/xxxxx.jsp  	실제로는 서버시스템이 .metadata 폴더의 ... 안에있는 upload 폴더를 찾아가서 파일을 찾는다.
 	
 	try{
 		List<FileItem> formItems=upload.parseRequest(request);	//파일 아이템을 배열로 얻어온다. 여러가지 type으로 넘어오는 input을 받는다. 
@@ -50,7 +50,7 @@
 					// input type="file" 로 전송된 파일이라면(다른 type 거르기)
 					
 					// 원본 파일명
-					String orgFileName=new File(item.getName()).getName();
+					String orgFileName=new File(item.getName()).getName();		//item.getName() => input type="file" 의 name="xxx" 파라미터를 가져오고, 그 파라미터로 전달된 item 데이터의 File을 getName() 을 통해 파일 이름을 가져온다.
 					// 파일 사이즈
 					long fileSize=item.getSize();
 					// 저장할 파일명을 겹치지 않게 지정한다.
@@ -60,8 +60,8 @@
 						//c:\xxx\WebContent\ upload     \      12355158219kim.png 이런식으로(윈도우의 경우)
 						
 					// 파일을 위의 경로에 실제로 저장한다.  
-					File storeFile=new File(filePath);		//클라이언트가 파일을 저장하면 서버가 알아서 temporary? 폴더에 숫자가 막 붙은 파일을 저장한다.
-					item.write(storeFile);					//서버가 저장한 temporary 폴더에서 얻어온다.
+					File storeFile=new File(filePath);		//클라이언트가 파일을 저장하면 서버가 알아서 temporary 폴더에 숫자가 막 붙은 파일을 저장한다.
+					item.write(storeFile);					//서버가 저장한 temporary 폴더에서 upload 폴더로 얻어온다. 얻어오지 않으면 temporary 폴더에서 사라지게 된다.
 					//이미지가 업로드된 경로를 구성한다.
 					savedPath="/upload/"+saveFileName;
 					//DB 에 저장한다.
