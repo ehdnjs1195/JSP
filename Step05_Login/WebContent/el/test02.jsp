@@ -21,7 +21,7 @@
 <p>
 	ID : <strong>${requestScope.dto.getId() }</strong>  <%-- ↓ requestScope 생략, getter 생략.  --%>
 	Email : <strong>${dto.email }</strong>
-	RegDate : <stong>${dto.regdate }</stong>	<%-- EL은 아예 아무것도 찍지 않는다.(편리한 점이 있음) --%>
+	RegDate : <stong>${dto.regdate }</stong>	<%-- EL은 아예 아무것도 찍지 않는다.(편리한 점이 있음, NullPointException 이 발생하지 않는다.) --%>
 </p>
 </body>
 </html>

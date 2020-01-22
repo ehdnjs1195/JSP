@@ -28,7 +28,7 @@
 </ul>
 <h4>친구 목록 입니다.</h4>
 <ul>
-	<c:forEach var="tmp" items="${requestScope.names }" varStatus="status">	
+	<c:forEach var="tmp" items="${requestScope.names }" varStatus="status">	<%-- status 변수는 마음대로 지을 수 있다. --%>
 		<li>
 			status.index : <strong>${status.index }</strong>|	<%-- index를 알 수가 있다. --%>
 			status.count : <strong>${status.count }</strong>|

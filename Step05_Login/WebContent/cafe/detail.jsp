@@ -22,7 +22,7 @@
 	request.setAttribute("pageNum", pageNum);
 	
 	String ip=request.getRemoteAddr();
-	System.out.println("클라이언트 IP 주소: "+ip);
+	System.out.println(num+" 번 게시글에 접속한 클라이언트 IP 주소: "+ip);
 	request.setAttribute("ip", ip);
 	
 	CommentDto cto=new CommentDto();
@@ -44,7 +44,7 @@
 		box-shadow: 1px 3px 3px 1px #ccc; /* 그림자 추가 */
 	}
 	#comment_table{
-		margin-top:15px;
+		margin-top:60px;
 	}
 </style>
 </head>
@@ -112,10 +112,10 @@
 				<c:forEach var="tmp" items="${list }" varStatus="status">
 					<c:if test="${tmp.writeNum eq num }">
 						<tr>
-							<td>${tmp.rnum }</td>
+							<td style="text-align:center;">${tmp.rnum }</td>
 							<td>${tmp.writer }</td>
 							<td>${tmp.content }</td>
-							<td style="font-size: 7px;">${tmp.regdate }</td>
+							<td style="font-size: 12px; text-align:center;">${tmp.regdate }</td>
 						</tr>				
 					</c:if>
 				</c:forEach>
