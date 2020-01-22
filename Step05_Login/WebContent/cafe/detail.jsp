@@ -19,7 +19,6 @@
 	request.setAttribute("pageNum", pageNum);
 	request.setAttribute("dto", dto);
 	request.setAttribute("num", num);
-	request.setAttribute("pageNum", pageNum);
 	
 	String ip=request.getRemoteAddr();
 	System.out.println(num+" 번 게시글에 접속한 클라이언트 IP 주소: "+ip);

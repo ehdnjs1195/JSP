@@ -99,7 +99,10 @@
 				<tr>
 					<td>${tmp.num }</td>
 					<td>${tmp.writer }</td>
-					<td><a href="detail.jsp?num=${tmp.num }&pageNum=${pageNum }">${tmp.title }</a></td>
+					<td>
+						<c:if test="${tmp.viewCount ge 30 }"><i class="fas fa-heart" style="color:red;"></i><span style="color:orange;">조회수30통과!</span></c:if>
+						<a href="detail.jsp?num=${tmp.num }&pageNum=${pageNum }">${tmp.title }</a>
+					</td>
 					<td>${tmp.viewCount }</td>
 					<td>${tmp.regdate }</td>
 				</tr>			
@@ -115,7 +118,7 @@
 			<c:choose>
 				<c:when test="${startPageNum ne 1 }">
 					<li>
-						<a href="list.jsp?pageNum=${startPageNum -1 }"><i class="fas fa-arrow-left"></i></a>
+						<a href="list.jsp?pageNum=${startPageNum -1 }"></a>
 					</li>
 				</c:when>
 				<c:otherwise>

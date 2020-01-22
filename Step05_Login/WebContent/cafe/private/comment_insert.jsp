@@ -14,7 +14,7 @@
 	dto.setIp(ip);
 	dto.setWriteNum(writeNum);
 	CommentDao.getInstance().insert(dto);
-	System.out.println(ip+" 님이 댓글을 달았어요.");
+	System.out.println(ip+" 님이 "+writeNum +"번 글에 댓글을 달았어요.");
 	
 	int num=Integer.parseInt(request.getParameter("num"));
 	request.setAttribute("num", num);
