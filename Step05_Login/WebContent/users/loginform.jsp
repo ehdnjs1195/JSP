@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,7 +119,7 @@ label{
 		<input type="hidden" name="url" value="<%=url %>" />
 		<input type="text" name="id" placeholder="Username" value="<%=savedId%>"/>
 		<input type="password" name="pwd" placeholder="Password" value="<%=savedPwd%>"/>
-		<label><input type="checkbox" name="isSave" id="yes" /> Save ID, Password</label>
+		<label><input type="checkbox" name="isSave" id="yes" /> Save ID, Password</label> 
 		<input type="submit" name="" value="Login"/>
 </form>
 </body>
