@@ -13,31 +13,52 @@
 <title>index.jsp</title>
 <%-- include/resource.jsp 를 include 하기 --%>
 <jsp:include page="include/resource.jsp"></jsp:include>
+<style>
+	.box{
+		width: 300px;
+		height: 100px;
+		border: none;
+		position: relative;
+		float: left;
+		list-style: none;
+		padding: 20px;
+		margin: 20px;
+		box-shadow: 1px 3px 3px 1px #ccc; /* 그림자 추가 */
+		font-size: 20px;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.box:hover{
+		box-shadow: 2px 4px 4px 2px #ccc; /* 그림자 추가 */
+		background-color: #ecf0f1;
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
 <%-- include/navbar.jsp를 include 하기 --%>
 <jsp:include page="include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h1>인덱스 페이지 입니다.</h1>
+	<h1><em>Acorn</em> 공부방</h1>
 	<ul>
-		<li><a href="shop/buy.jsp?num=1&name=coffe">1번 상품 구입하기</a></li>
-		<li><a href="shop/buy.jsp?num=2&name=sugar">2번 상품 구입하기</a></li>
-		<li><a href="cafe/list.jsp">글 목록보기</a></li>
-		<li><a href="file/list.jsp">파일 목록보기</a></li> <%-- 자료실만들기. --%>
-		<li><a href="cook/test1.jsp">쿠키 테스트</a></li>
-		<li><a href="cook/test2.jsp">쿠키테스트2</a></li>
-		<li><a href="popup/parent.html">팝업 테스트</a></li>
-		<li><a href="popup/main.jsp">팝업 테스트2</a></li>	<%-- 쿠키 관련된 작업을 해야하기 때문에 jsp로 만듬 --%>
-		<li><a href="el01">EL 테스트</a></li>
-		<li><a href="el02">EL 테스트2</a></li>
-		<li><a href="el03">EL 테스트3</a></li>
-		<li><a href="el/test04.jsp">EL 테스트4</a></li>
-		<li><a href="jstl/test01.jsp">JSTL 테스트</a></li>
-		<li><a href="jstl/test02.jsp">JSTL 테스트2</a></li>
-		<li><a href="jstl/test03.jsp">JSTL 테스트3</a></li>
-		<li><a href="jstl/test04.jsp">JSTL 테스트4</a></li>
-		<li><a href="fortune">MVC 테스트 (오늘의 운세)</a></li>
-		<li><a href="cafe/list.nhn">MVC 카페글 목록보기</a></li>
+		<a href="shop/buy.jsp?num=1&name=coffe"><li class="box">Coffee 구입하기</li></a>
+		<a href="shop/buy.jsp?num=2&name=sugar"><li class="box">Sugar 구입하기</li></a>
+		<a href="cafe/list.jsp"><li class="box">글 목록보기</li></a>
+		<a href="file/list.jsp"><li class="box">파일 목록보기</li></a> <%-- 자료실만들기. --%>
+		<a href="cook/test1.jsp"><li class="box">쿠키 테스트</li></a>
+		<a href="cook/test2.jsp"><li class="box">쿠키테스트2</li></a>
+		<a href="popup/parent.html"><li class="box">팝업 테스트</li></a>
+		<a href="popup/main.jsp"><li class="box">팝업 테스트2</li></a>	<%-- 쿠키 관련된 작업을 해야하기 때문에 jsp로 만듬 --%>
+		<a href="el01"><li class="box">EL 테스트</li></a>
+		<a href="el02"><li class="box">EL 테스트2</li></a>
+		<a href="el03"><li class="box">EL 테스트3</li></a>
+		<a href="el/test04.jsp"><li class="box">EL 테스트4</li></a>
+		<a href="jstl/test01.jsp"><li class="box">JSTL 테스트</li></a>
+		<a href="jstl/test02.jsp"><li class="box">JSTL 테스트2</li></a>
+		<a href="jstl/test03.jsp"><li class="box">JSTL 테스트3</li></a>
+		<a href="jstl/test04.jsp"><li class="box">JSTL 테스트4</li></a>
+		<a href="fortune"><li class="box">MVC 테스트 (오늘의 운세)</li></a>
+		<a href="cafe/list.nhn"><li class="box">MVC 카페글 목록보기</li></a>
 	</ul>
 </div>
 </body>

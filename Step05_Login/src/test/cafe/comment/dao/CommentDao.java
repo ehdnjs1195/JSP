@@ -59,10 +59,11 @@ public class CommentDao {
 		ResultSet rs = null;
 		try {
 			conn = new DbcpBean().getConn();
-			String sql = "select num, writer, content, to_char(regdate, 'yy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate, ip, writeNum, rownum as rnum"
+			String sql = "select result.*, rownum rnum from"
+					+ " (select num, writer, content, to_char(regdate, 'yy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate, ip, writeNum"
 					+ " from board_cafe_comment"
 					+ " where writeNum=?"
-					+ " order by num asc";
+					+ " order by num asc) result";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, dto.getWriteNum());
 			rs = pstmt.executeQuery();
@@ -92,5 +93,40 @@ public class CommentDao {
 			}
 		}
 		return list;
+	}
+	
+	public int getCommentCount(int num) {
+		int commentCount=0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = new DbcpBean().getConn();
+			String sql = "select max(rnum) as commentCount from" + 
+					"	(select num, rownum as rnum" + 
+					"	 from board_cafe_comment" + 
+					"	where writeNum=?)";
+			pstmt = conn.prepareStatement(sql);
+			// ? 에 값 바인딩 
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				commentCount=rs.getInt("commentCount");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				//connection pool 에 반납하기 
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return commentCount;
 	}
 }

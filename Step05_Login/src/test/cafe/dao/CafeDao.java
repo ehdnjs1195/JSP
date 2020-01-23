@@ -272,4 +272,48 @@ public class CafeDao {	//싱글톤
 		}
 		return list;
 	}
+	
+	public List<CafeDto> getPopularList(){
+		List<CafeDto> list=new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = new DbcpBean().getConn();
+			String sql = "select * from"
+					+ "(select result1.*, rownum as rnum from"
+					+ "(SELECT num,writer,title,viewCount,to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\" hh24\"시\"mi\"분\"') as regdate" + 
+					"	FROM board_cafe" + 
+					"	ORDER BY viewCount DESC) result1)"
+					+ " where rnum between 1 and 3";
+			pstmt = conn.prepareStatement(sql);
+			// ? 에 값 바인딩 
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				CafeDto tmp=new CafeDto();
+				tmp.setNum(rs.getInt("num"));
+				tmp.setWriter(rs.getString("writer"));
+				tmp.setTitle(rs.getString("title"));
+				tmp.setViewCount(rs.getInt("viewCount"));
+				tmp.setRegdate(rs.getString("regdate"));
+				//ArrayList 객체에 누적시킨다.
+				list.add(tmp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				//connection pool 에 반납하기 
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return list;
+	}
 }

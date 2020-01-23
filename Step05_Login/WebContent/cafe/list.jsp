@@ -1,3 +1,4 @@
+<%@page import="test.cafe.comment.dao.CommentDao"%>
 <%@page import="test.cafe.dto.CafeDto"%>
 <%@page import="java.util.List"%>
 <%@page import="test.cafe.dao.CafeDao"%>
@@ -15,6 +16,9 @@
 		position:relative;
 		left: 50%;
 		transform: translateX(-50%);
+	}
+	#popList {
+		background-color: #fab1a0;
 	}
 </style>
 </head>
@@ -68,6 +72,11 @@
 	request.setAttribute("endPageNum", endPageNum);
 	request.setAttribute("pageNum", pageNum);
 	request.setAttribute("totalPageCount", totalPageCount);
+	
+	List<CafeDto> popList=CafeDao.getInstance().getPopularList();
+	request.setAttribute("popList", popList);
+	
+
 %>
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="cafe" name="category"/>
@@ -77,24 +86,36 @@
 		<li><a href="${pageContext.request.contextPath }/cafe/list.jsp">목록</a></li>
 	</ol>
 	<h1>글 목록 입니다.</h1>
-	<table class="table table-striped table-condensed">
+	<table class="table table-hover table-condensed">
 		<colgroup>
 			<col class="col-xs-1"/>
 			<col class="col-xs-2"/>
 			<col class="col-xs-5"/>
 			<col class="col-xs-1"/>
-			<col class="col-xs-3"/>
+			<col class="col-xs-1"/>
+			<col class="col-xs-2"/>
 		</colgroup>
 		<thead>
 			<tr>
 				<th>글번호</th>
 				<th>작성자</th>
 				<th>제목</th>
+				<th>댓글수</th>
 				<th>조회수</th>
 				<th>등록일</th>
 			</tr>
 		</thead>
 		<tbody>
+			<c:forEach var="tmp" items="${popList }">
+				<tr id="popList">
+					<td><span style="color:#d63031;"><strong>인기글</strong></span></td>
+					<td>${tmp.writer }</td>
+					<td><a href="detail.jsp?num=${tmp.num }&pageNum=${pageNum }">${tmp.title }</a></td>
+					<td>${CommentDao.getInstance().getCommentCount(tmp.num)}</td>
+					<td>${tmp.viewCount }</td>
+					<td>${tmp.regdate }</td>
+				</tr>
+			</c:forEach>
 			<c:forEach var="tmp" items="${list }">
 				<tr>
 					<td>${tmp.num }</td>
@@ -103,6 +124,7 @@
 						<c:if test="${tmp.viewCount ge 30 }"><i class="fas fa-heart" style="color:red;"></i><span style="color:orange;">조회수30통과!</span></c:if>
 						<a href="detail.jsp?num=${tmp.num }&pageNum=${pageNum }">${tmp.title }</a>
 					</td>
+					<td>${CommentDao.getInstance().getCommentCount(tmp.num)}</td>
 					<td>${tmp.viewCount }</td>
 					<td>${tmp.regdate }</td>
 				</tr>			
@@ -118,7 +140,7 @@
 			<c:choose>
 				<c:when test="${startPageNum ne 1 }">
 					<li>
-						<a href="list.jsp?pageNum=${startPageNum -1 }"></a>
+						<a href="list.jsp?pageNum=${startPageNum -1 }"><i class="fas fa-arrow-left"></i></a>
 					</li>
 				</c:when>
 				<c:otherwise>
