@@ -18,7 +18,7 @@
   </build>
   <dependencies>
   <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
-	<dependency>
+	<dependency>	<!-- Maven Dependencies 라이브러리를 자동으로 저장하도록 함. -->
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-context</artifactId>
 	    <version>4.0.0.RELEASE</version>
